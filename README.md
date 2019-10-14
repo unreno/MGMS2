@@ -62,6 +62,19 @@ library('specsim')
 ```
 
 
+##	Usage
+
+
+```R
+library('specsim')
+
+
+specsim::testfunction()
+
+```
+
+
+
 
 
 ##	Removal
@@ -72,6 +85,5 @@ remove.packages("specsim")
 
 
 ```
-
 
 

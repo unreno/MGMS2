@@ -11,4 +11,7 @@ Description: Library for the Interactive Poly-bacterial In-silico Glycolipid Spe
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
+Imports:
+	MALDIquant,
+	MALDIquantForeign
 RoxygenNote: 6.1.1
