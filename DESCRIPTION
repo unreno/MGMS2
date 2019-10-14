@@ -1,13 +1,13 @@
 Package: specsim
-Title: What the Package Does (One Line, Title Case)
-Version: 0.0.0.9000
+Title: Library for the Interactive Poly-bacterial In-silico Glycolipid Spectrum Simulator
+Version: 0.0.0
 Authors@R: 
     person(given = "First",
            family = "Last",
            role = c("aut", "cre"),
            email = "first.last@example.com",
            comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
-License: Gnu GPL-3
+Description: Library for the Interactive Poly-bacterial In-silico Glycolipid Spectrum Simulator
+License: GPL-3
 Encoding: UTF-8
 LazyData: true
