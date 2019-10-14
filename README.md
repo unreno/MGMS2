@@ -14,12 +14,17 @@ https://aberdeenstudygroup.github.io/studyGroup/lessons/SG-T4-Rpackages/makingRp
 http://r-pkgs.had.co.nz/intro.html
 
 ```R
-
 install.packages(c('devtools','roxygen2'))
 library('devtools')
 library('roxygen2')
+```
 
 
+```R
+library('devtools')
+library('roxygen2')
+
+document()
 ```
 
 
