@@ -1,0 +1,368 @@
+library(MALDIquant)
+library(MALDIquantForeign)
+
+
+#' A Cat Function
+#'
+#' This function allows you to express your love of cats.
+#' @param love Do you love cats? Defaults to TRUE.
+#' @keywords cats
+#' @export
+#' @examples
+#' testfunction()
+
+testfunction <- function(){
+	message("MGMS2 testfunction")
+}
+
+#' A Cat Function
+#'
+#' This function allows you to express your love of cats.
+#' @param love Do you love cats? Defaults to TRUE.
+#' @keywords cats
+#' @export
+#' @examples
+#' filtermass()
+
+filtermass <- function(spectra, mass.range){
+	for (i in 1:length(spectra)){
+		mass = spectra[[i]]@mass
+		index=which(mass >= mass.range[1] & mass <= mass.range[2])
+		spectra[[i]]@mass = spectra[[i]]@mass[index]
+		spectra[[i]]@intensity = spectra[[i]]@intensity[index]
+	}
+	return(spectra)
+}
+
+#' A Cat Function
+#'
+#' This function allows you to express your love of cats.
+#' @param love Do you love cats? Defaults to TRUE.
+#' @keywords cats
+#' @export
+#' @examples
+#' testfunction()
+
+gather.summary <- function(x){
+	species <- NULL
+	for (i in 1:length(x)){
+		species[i] <- as.character(x[[i]]$species[1])
+	}
+	return(list(pool=x, species=species))
+}
+
+#' A Cat Function
+#'
+#' This function allows you to express your love of cats.
+#' @param love Do you love cats? Defaults to TRUE.
+#' @keywords cats
+#' @export
+#' @examples
+#' testfunction()
+
+gather.summary.file <- function(directory){
+	files <- list.files(path=directory, pattern=".csv", full.names = TRUE)
+	pool <- list(); species <- NULL
+	for (i in 1:length(files)){
+		pool[[i]] <- read.csv(file=files[i])
+		species[i] <- as.character(pool[[i]]$species[1])
+	}
+	return(list(pool=pool, species=species))
+}
+
+
+#' A Cat Function
+#'
+#' This function allows you to express your love of cats.
+#' @param love Do you love cats? Defaults to TRUE.
+#' @keywords cats
+#' @export
+#' @examples
+#' testfunction()
+
+preprocessMS <- function(spectra, halfWindowSize=20, SNIP.iteration=60){
+	spectra <- transformIntensity(spectra, method="sqrt")
+	spectra <- smoothIntensity(spectra, method="SavitzkyGolay", halfWindowSize=halfWindowSize)
+	spectra <- removeBaseline(spectra, method="SNIP", iterations=SNIP.iteration)
+	spectra <- calibrateIntensity(spectra,method="TIC") #intensity calibration/normalization
+	return(spectra)
+}
+
+#' A Cat Function
+#'
+#' This function allows you to express your love of cats.
+#' @param love Do you love cats? Defaults to TRUE.
+#' @keywords cats
+#' @export
+#' @examples
+#' testfunction()
+
+summarize.monospectra <- function(processed.obj, species, directory, minFrequency=0.50, align.tolerance=0.0005, snr=3, halfWindowSize=20, top.N=50){
+	spec.summary.comb <- list()
+	for (i in processed.obj$strain.unique){
+		index <- which(processed.obj$strain.no==processed.obj$strain.unique[i])
+		spectra.interest <- list()
+		for (j in 1:length(index)){
+			spectra.interest[[j]] <- processed.obj$spectra[[index[j]]]
+		}
+		spec.summary=summary.mono(spectra.interest, minFrequency, align.tolerance, snr, halfWindowSize, 	top.N)
+		strain = processed.obj$strain.name[processed.obj$strain.no==i][1]
+		spec.summary.comb[[i]] = cbind(spec.summary, species, strain)
+		write.csv(spec.summary.comb[[i]], file=paste(directory, "/", species, "_",strain , ".csv", sep=""), row.names = FALSE)
+	}
+	return(spec.summary.comb)
+}
+
+#' A Cat Function
+#'
+#' This function allows you to express your love of cats.
+#' @param love Do you love cats? Defaults to TRUE.
+#' @keywords cats
+#' @export
+#' @examples
+#' testfunction()
+
+process.monospectra <- function(file, mass.range=c(1000,2200), halfWindowSize=20, SNIP.iteration=60){
+	file.interest <- read.csv(file=file, "\t", header=TRUE)
+	spectra <- importMzXml(paste(file.interest$file.name))
+	spectra <- filtermass(spectra, mass.range)
+	spectra <- preprocessMS(spectra, halfWindowSize=20, SNIP.iteration=60)
+	strain.no <- file.interest$strain.no
+	strain.unique <- unique(strain.no)
+	strain.name <- file.interest$strain
+	return(list(spectra=spectra, strain.no=strain.no, strain.unique=strain.unique, strain.name=strain.name))
+}
+
+
+#' A Cat Function
+#'
+#' This function allows you to express your love of cats.
+#' @param love Do you love cats? Defaults to TRUE.
+#' @keywords cats
+#' @export
+#' @examples
+#' testfunction()
+
+summary.mono <- function(spectra.interest, minFrequency=0.50, align.tolerance=0.0005, snr=3, halfWindowSize=20, top.N=50){
+	ref.peak <- detectPeaks(spectra.interest, method="MAD", halfWindowSize = halfWindowSize, SNR=snr)
+	reference.peaks <- referencePeaks(ref.peak, method="relaxed",
+		minFrequency = minFrequency, tolerance=align.tolerance)
+	spectra.interest2 <- alignSpectra(spectra.interest, reference=reference.peaks,
+		halfWindowSize = halfWindowSize,
+		SNR=snr, tolerance=align.tolerance, warpingMethod = "lowess")
+	peaks2 <- detectPeaks(spectra.interest2, SNR=snr, halfWindowSize=halfWindowSize,
+		method="MAD")
+	peaks3 <- binPeaks(peaks2, tolerance=align.tolerance)
+	peaks4 <- filterPeaks(peaks3, minFrequency=minFrequency)
+	featureMatrix <- intensityMatrix(peaks4)
+
+	mean.log.int = sd.log.int = missing.rate = NULL
+	for (k in 1:ncol(featureMatrix)){
+		featureMatrix[,k] = ifelse(featureMatrix[,k]==0, NA, log(featureMatrix[,k]))
+		y <- featureMatrix[,k]
+		mean.log.int[k] = mean(y, na.rm=TRUE)
+		sd.log.int[k] = sd(y, na.rm=TRUE)
+		missing.rate[k] = mean(is.na(y))
+	}
+	summary.info <- data.frame(
+		mz = as.numeric(colnames(featureMatrix)),
+		mean.log.int = mean.log.int,
+		sd.log.int = sd.log.int,
+		missing.rate = missing.rate)
+	th <- sort(summary.info$mean.log.int, decreasing=TRUE)[top.N][1]
+	if (!is.na(th)){
+		summary.info <- summary.info[summary.info$mean.log.int >= th, ]
+	}
+	return(summary.info)
+}
+
+#' A Cat Function
+#'
+#' This function allows you to express your love of cats.
+#' @param love Do you love cats? Defaults to TRUE.
+#' @keywords cats
+#' @export
+#' @examples
+#' testfunction()
+
+read.summary.file <- function(files){
+	pool <- list()
+	for (i in 1:length(files)){
+		pool[[i]] <- read.csv(file=files[i])
+		tmp <-	strsplit(files[i], "/")[[1]]
+		tmp <- strsplit(tmp[length(tmp)], "[.]")[[1]][1]
+		tmp <- strsplit(tmp, "_")[[1]]
+		index=which(species==tmp[1])
+		if (length(index)>0){
+			pool[[i]]$species <- tmp[1]
+			pool[[i]]$strain <- tmp[2]
+		}
+	}
+	return(pool)
+}
+
+#' A Cat Function
+#'
+#' This function allows you to express your love of cats.
+#' @param love Do you love cats? Defaults to TRUE.
+#' @keywords cats
+#' @export
+#' @examples
+#' testfunction()
+
+simulate.ind.spec.single <- function(interest, mz.tol, species, strain){
+	spec <- NULL
+	for (i in 1:nrow(interest)){
+		current <- interest[i,]
+		log.int <- rnorm(1, current$mean.log.int, current$sd.log.int)
+		mz <- rnorm(1, current$mz, mz.tol/qnorm(0.9995)) #Change
+		tmp <- data.frame(mz=mz, log.int=log.int, species=species, strain=strain, missing.rate=current$missing.rate)
+		if (length(spec)<1){
+			spec <- tmp
+		}else{
+			spec <- rbind(spec, tmp)
+		}
+	}
+	spec$normalized.int <- exp(spec$log.int)
+	return(spec)
+}
+
+#' A Cat Function
+#'
+#' This function allows you to express your love of cats.
+#' @param love Do you love cats? Defaults to TRUE.
+#' @keywords cats
+#' @export
+#' @examples
+#' testfunction()
+
+build.bin.sim.spec <- function(bin.mass, target, bin.size=1){
+	bin.sim = chosen.mz = mid.mass = array(c(0), dim=length(bin.mass))
+	for (j in 1:length(bin.mass)){
+		current.min.mass = bin.mass[j]
+		current.max.mass = current.min.mass+bin.size
+		mid.mass[j] = (current.min.mass+current.max.mass)/2
+		index = which((target$mz >= current.min.mass) & (target$mz < current.max.mass))
+		if (length(index)>0){
+			index2 = which.max(target$normalized.int[index])
+			bin.sim[j] = max(target$normalized.int[index])
+			chosen.mz[j] = target$mz[index][index2]
+		}
+	}
+	binned.target = as.data.frame(cbind(mid.mass, chosen.mz, bin.sim))
+	return(binned.target)
+}
+
+#' A Cat Function
+#'
+#' This function allows you to express your love of cats.
+#' @param love Do you love cats? Defaults to TRUE.
+#' @keywords cats
+#' @export
+#' @examples
+#' testfunction()
+
+simulate.poly.spectra <- function(sim.template, mixture.ratio, spectrum.name='Spectrum',
+		mixture.missing.prob.peak = 0.05, noise.peak.ratio = 0.05, snr.basepeak = 500 , noise.cv = 0.25, mz.range=c(1000,2200)){
+
+	#mixture ratio
+	mixture.ratio.list <- NULL
+	for (i in 1:nrow(sim.template)){
+		mixture.ratio.list[i]=unlist(mixture.ratio[as.character(sim.template$species[i])])
+	}
+	sim.template$normalized.int = sim.template$normalized.int *	mixture.ratio.list
+	sim.template = sim.template[sim.template$normalized.int>0,]
+	sim.template = sim.template[sim.template$mz >= mz.range[1] & sim.template$mz <= mz.range[2], ]
+
+	#mixture missing prob
+	missing.probability <- mixture.missing.prob.peak+sim.template$missing.rate
+	missing.probability <- ifelse(missing.probability<0, 0, ifelse(missing.probability>1, 1, missing.probability))
+	missing <- rbinom(nrow(sim.template), 1, missing.probability)
+	if (length(missing)>0){
+		sim.template <- sim.template[missing==0,]
+	}else{
+		stop("too many missing.\n")
+	}
+	
+	#add noise peaks
+	if (noise.peak.ratio>0){
+		noise.mean.int <- 1/snr.basepeak
+		noise.n <- round(nrow(sim.template)*noise.peak.ratio,0)
+		noise.int <- exp(rnorm(noise.n, log(noise.mean.int), log(noise.cv+1)))
+		noise.mz <- runif(noise.n, mz.range[1], mz.range[2])
+		noise.temp <- data.frame(mz=noise.mz, log.int=NA, species=c("Noise"), strain=c("Noise"), normalized.int=noise.int, missing.rate=0)
+		sim.template = rbind(sim.template, noise.temp)
+	}
+	
+	#normalize by the highest peak
+	sim.template$normalized.int = sim.template$normalized.int / max(sim.template$normalized.int)
+	
+	species.interest= names(mixture.ratio)[mixture.ratio>0]
+	for (p in species.interest){
+		if (p==species.interest[1]){
+			plot(sim.template$mz[sim.template$species==p],
+				sim.template$normalized.int[sim.template$species==p],
+				ylim=c(0,1.1), xlim=mz.range, col=2, type="h", main=spectrum.name,
+				xlab="m/z", ylab="Relative intensity")
+			legend("topleft", c(species.interest), lty=rep(1, length(species.interest)+1), col=c((1+1):(length(species.interest)+1)))
+		}else{
+			points(sim.template$mz[sim.template$species==p],
+				sim.template$normalized.int[sim.template$species==p], col=which(species.interest==p)+1, type="h")
+		}
+		if (length(sim.template$species=="Noise")>0){
+			points(sim.template$mz[sim.template$species=="Noise"],
+			sim.template$normalized.int[sim.template$species=="Noise"], col='black', type="h")
+		}
+	}
+	return(sim.template=sim.template[,c(1,3,4,6)])
+}
+#' A Cat Function
+#'
+#' This function allows you to express your love of cats.
+#' @param love Do you love cats? Defaults to TRUE.
+#' @keywords cats
+#' @export
+#' @examples
+#' testfunction()
+
+simulate.many.poly.spectra <- function(mono.info, nsim=10000, file='MGMS2_insilico_spectra.pdf', mixture.ratio,
+		mixture.missing.prob.peak = 0.05, noise.peak.ratio = 0.05,
+		snr.basepeak = 500 , noise.cv = 0.25, mz.range=c(1000,2200), mz.tol=0.5) {
+	sim.spectra.collection <- NULL
+	pdf(file)
+	for (i in 1:nsim){
+		sim.template <- create.insilico.mixture.template(mono.info, mz.tol=0.5) #simulated polyspectra (users can modify this)
+		sim.spectra.collection[[i]]=simulate.poly.spectra(sim.template, mixture.ratio=mixture.ratio,
+			spectrum.name=paste('Spectrum', i, sep="_"),
+			mixture.missing.prob.peak =mixture.missing.prob.peak,
+			noise.peak.ratio = noise.peak.ratio,
+			snr.basepeak = snr.basepeak , noise.cv =noise.cv, mz.range=mz.range)
+	}
+	dev.off()
+	return(sim.spectra.collection)
+}
+
+
+#' A Cat Function
+#'
+#' This function allows you to express your love of cats.
+#' @param love Do you love cats? Defaults to TRUE.
+#' @keywords cats
+#' @export
+#' @examples
+#' testfunction()
+
+create.insilico.mixture.template <- function(mono.info, mz.tol=0.5){
+	spec.mixture <- NULL
+	unique.species <- unique(mono.info$species)
+	for (i in 1:length(unique.species)){
+		index=which(mono.info$species==unique.species[i])
+		if (length(index)>0){
+			if (length(index)==1){j=index}else{j=sample(index)[1]}
+			ind.species <- simulate.ind.spec.single(mono.info$pool[[j]], mz.tol=mz.tol, species=mono.info$species[j], mono.info$pool[[j]]$strain[1])
+			spec.mixture = rbind(spec.mixture, ind.species)
+		}
+	}
+	return(spec.mixture)
+}
+
