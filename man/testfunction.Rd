@@ -2,7 +2,7 @@
 % Please edit documentation in R/SpecFunctions_Final3.R
 \name{testfunction}
 \alias{testfunction}
-\title{A Cat Function}
+\title{testfunction}
 \usage{
 testfunction()
 }
@@ -10,7 +10,7 @@ testfunction()
 \item{love}{Do you love cats? Defaults to TRUE.}
 }
 \description{
-This function allows you to express your love of cats.
+testfunction
 }
 \examples{
 testfunction()

@@ -2,7 +2,7 @@
 % Please edit documentation in R/SpecFunctions_Final3.R
 \name{preprocessMS}
 \alias{preprocessMS}
-\title{A Cat Function}
+\title{preprocessMS}
 \usage{
 preprocessMS(spectra, halfWindowSize = 20, SNIP.iteration = 60)
 }

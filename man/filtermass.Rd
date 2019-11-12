@@ -2,7 +2,7 @@
 % Please edit documentation in R/SpecFunctions_Final3.R
 \name{filtermass}
 \alias{filtermass}
-\title{A Cat Function}
+\title{filtermass}
 \usage{
 filtermass(spectra, mass.range)
 }
