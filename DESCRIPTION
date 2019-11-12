@@ -2,10 +2,16 @@ Package: MGMS2
 Title: Library for the Interactive Poly-bacterial In-silico Glycolipid Spectrum Simulator
 Version: 0.0.0
 Authors@R: 
-    person(given = "First",
-           family = "Last",
+    person(given = "So Young",
+           family = "Ryu",
            role = c("aut", "cre"),
-           email = "first.last@example.com",
+           email = "soyoungr@unr.edu",
+           comment = c(ORCID = "YOUR-ORCID-ID"))
+Maintainer@R: 
+    person(given = "George",
+           family = "Wendt",
+           role = c("aut", "cre"),
+           email = "gwendt@unr.edu",
            comment = c(ORCID = "YOUR-ORCID-ID"))
 Description: Library for the Interactive Poly-bacterial In-silico Glycolipid Spectrum Simulator
 License: GPL-3
@@ -14,4 +20,7 @@ LazyData: true
 Imports:
 	MALDIquant,
 	MALDIquantForeign
-RoxygenNote: 6.1.1
+Depends:
+	MALDIquant,
+	MALDIquantForeign
+RoxygenNote: 7.0.0

@@ -4,12 +4,33 @@
 \alias{summarize_monospectra}
 \title{summarize_monospectra}
 \usage{
-summarize_monospectra(processed.obj, species, directory,
-  minFrequency = 0.5, align.tolerance = 5e-04, snr = 3,
-  halfWindowSize = 20, top.N = 50)
+summarize_monospectra(
+  processed.obj,
+  species,
+  directory,
+  minFrequency = 0.5,
+  align.tolerance = 5e-04,
+  snr = 3,
+  halfWindowSize = 20,
+  top.N = 50
+)
 }
 \arguments{
-\item{love}{Do you love cats? Defaults to TRUE.}
+\item{processed.obj}{Add description}
+
+\item{species}{Add description}
+
+\item{directory}{Add description}
+
+\item{minFrequency}{Add description}
+
+\item{align.tolerance}{Add description}
+
+\item{snr}{Add description}
+
+\item{halfWindowSize}{Add description}
+
+\item{top.N}{Add description}
 }
 \description{
 This function allows you to express your love of cats.

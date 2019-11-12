@@ -1,11 +1,24 @@
-library(MALDIquant)
-library(MALDIquantForeign)
+
+#' @export
+species_list <- 	list(
+	'Ab' = 'Acinetobacter baumannii',
+	'Ec' = 'Enterobacter cloacae',
+	'Ef' = 'Enterococus faecalis',
+	'Kp' = 'Klebsiella pneumoniae',
+	'Pa' = 'Pseudomonas aerugonusa',
+	'Sa' = 'Staphylococcus aureus'
+)
+
+#' @export
+species = names(species_list)
+
+
+
 
 
 #' testfunction
 #'
 ##' testfunction
-##' @param love Do you love cats? Defaults to TRUE.
 ##' @keywords cats
 #' @export
 #' @examples
@@ -18,7 +31,8 @@ testfunction <- function(){
 #' filtermass
 #'
 ##' This function allows you to express your love of cats.
-##' @param love Do you love cats? Defaults to TRUE.
+##' @param spectra	Add description
+##' @param mass.range	Add description
 ##' @keywords cats
 #' @export
 ##' @examples
@@ -37,7 +51,7 @@ filtermass <- function(spectra, mass.range){
 #' gather_summary
 #'
 ##' This function allows you to express your love of cats.
-##' @param love Do you love cats? Defaults to TRUE.
+##' @param x	Add description
 ##' @keywords cats
 #' @export
 ##' @examples
@@ -54,7 +68,7 @@ gather_summary <- function(x){
 #' gather_summary_file
 #'
 ##' This function allows you to express your love of cats.
-##' @param love Do you love cats? Defaults to TRUE.
+##' @param directory	Add description
 ##' @keywords cats
 #' @export
 ##' @examples
@@ -74,7 +88,9 @@ gather_summary_file <- function(directory){
 #' preprocessMS
 #'
 ##' This function allows you to express your love of cats.
-##' @param love Do you love cats? Defaults to TRUE.
+##' @param spectra	Add description
+##' @param halfWindowSize	Add description
+##' @param SNIP.iteration	Add description
 ##' @keywords cats
 #' @export
 ##' @examples
@@ -91,7 +107,14 @@ preprocessMS <- function(spectra, halfWindowSize=20, SNIP.iteration=60){
 #' summarize_monospectra
 #'
 ##' This function allows you to express your love of cats.
-##' @param love Do you love cats? Defaults to TRUE.
+##' @param processed.obj	Add description
+##' @param species	Add description
+##' @param directory	Add description
+##' @param minFrequency	Add description
+##' @param align.tolerance	Add description
+##' @param snr	Add description
+##' @param halfWindowSize	Add description
+##' @param top.N	Add description
 ##' @keywords cats
 #' @export
 ##' @examples
@@ -113,10 +136,14 @@ summarize_monospectra <- function(processed.obj, species, directory, minFrequenc
 	return(spec.summary.comb)
 }
 
+
 #' process_monospectra
 #'
 ##' This function allows you to express your love of cats.
-##' @param love Do you love cats? Defaults to TRUE.
+##' @param file	Add description
+##' @param mass.range	Add description
+##' @param halfWindowSize	Add description
+##' @param SNIP.iteration	Add description
 ##' @keywords cats
 #' @export
 ##' @examples
@@ -124,7 +151,14 @@ summarize_monospectra <- function(processed.obj, species, directory, minFrequenc
 
 process_monospectra <- function(file, mass.range=c(1000,2200), halfWindowSize=20, SNIP.iteration=60){
 	file.interest <- read.csv(file=file, "\t", header=TRUE)
-	spectra <- importMzXml(paste(file.interest$file.name))
+
+	#	These files all contained the absolute path.
+	#	This won't work for most users.
+	#	I trimmed the path from the content and will prepend the path of this file.
+	dir=dirname(file)
+	spectra <- importMzXml(paste(dir,file.interest$file.name,sep='/'))
+	#spectra <- importMzXml(paste(file.interest$file.name))
+
 	spectra <- filtermass(spectra, mass.range)
 	spectra <- preprocessMS(spectra, halfWindowSize=20, SNIP.iteration=60)
 	strain.no <- file.interest$strain.no
@@ -137,7 +171,12 @@ process_monospectra <- function(file, mass.range=c(1000,2200), halfWindowSize=20
 #' summary_mono
 #'
 ##' This function allows you to express your love of cats.
-##' @param love Do you love cats? Defaults to TRUE.
+##' @param spectra.interest	Add description
+##' @param minFrequency	Add description
+##' @param align.tolerance	Add description
+##' @param snr	Add description
+##' @param halfWindowSize	Add description
+##' @param top.N	Add description
 ##' @keywords cats
 #' @export
 ##' @examples
@@ -179,7 +218,7 @@ summary_mono <- function(spectra.interest, minFrequency=0.50, align.tolerance=0.
 #' read_summary_file
 #'
 ##' This function allows you to express your love of cats.
-##' @param love Do you love cats? Defaults to TRUE.
+##' @param files	Add description
 ##' @keywords cats
 #' @export
 ##' @examples
@@ -204,7 +243,10 @@ read_summary_file <- function(files){
 #' simulate_ind_spec_single
 #'
 ##' This function allows you to express your love of cats.
-##' @param love Do you love cats? Defaults to TRUE.
+##' @param interest	Add description
+##' @param mz.tol	Add description
+##' @param species	Add description
+##' @param strain	Add description
 ##' @keywords cats
 #' @export
 ##' @examples
@@ -230,7 +272,9 @@ simulate_ind_spec_single <- function(interest, mz.tol, species, strain){
 #' build_bin_sim_spec
 #'
 ##' This function allows you to express your love of cats.
-##' @param love Do you love cats? Defaults to TRUE.
+##' @param bin.mass	Add description
+##' @param target	Add description
+##' @param bin.size	Add description
 ##' @keywords cats
 #' @export
 ##' @examples
@@ -256,7 +300,14 @@ build_bin_sim_spec <- function(bin.mass, target, bin.size=1){
 #' simulate_poly_spectra
 #'
 ##' This function allows you to express your love of cats.
-##' @param love Do you love cats? Defaults to TRUE.
+##' @param sim.template	Add description
+##' @param mixture.ratio	Add description
+##' @param spectrum.name	Add description
+##' @param mixture.missing.prob.peak	Add description
+##' @param noise.peak.ratio	Add description
+##' @param snr.basepeak	Add description
+##' @param noise.cv	Add description
+##' @param mz.range	Add description
 ##' @keywords cats
 #' @export
 ##' @examples
@@ -321,7 +372,16 @@ simulate_poly_spectra <- function(sim.template, mixture.ratio, spectrum.name='Sp
 #' simulate_many_poly_spectra
 #'
 ##' This function allows you to express your love of cats.
-##' @param love Do you love cats? Defaults to TRUE.
+##' @param mono.info	Add description
+##' @param nsim	Add description
+##' @param file	Add description
+##' @param mixture.ratio	Add description
+##' @param mixture.missing.prob.peak	Add description
+##' @param noise.peak.ratio	Add description
+##' @param snr.basepeak	Add description
+##' @param noise.cv	Add description
+##' @param mz.range	Add description
+##' @param mz.tol	Add description
 ##' @keywords cats
 #' @export
 ##' @examples
@@ -348,7 +408,8 @@ simulate_many_poly_spectra <- function(mono.info, nsim=10000, file='MGMS2_insili
 #' create_insilico_mixture_template
 #'
 ##' This function allows you to express your love of cats.
-##' @param love Do you love cats? Defaults to TRUE.
+##' @param mono.info	Add description
+##' @param mz.tol	Add description
 ##' @keywords cats
 #' @export
 ##' @examples

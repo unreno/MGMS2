@@ -7,7 +7,7 @@
 read_summary_file(files)
 }
 \arguments{
-\item{love}{Do you love cats? Defaults to TRUE.}
+\item{files}{Add description}
 }
 \description{
 This function allows you to express your love of cats.

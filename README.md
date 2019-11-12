@@ -3,9 +3,42 @@
 Library for the Interactive Poly-bacterial In-silico Glycolipid Spectrum Simulator
 
 
+##	User
 
 
-##	Creation
+###	Installation
+
+```R
+install.packages(c('MALDIquant','MALDIquantForeign'),type='source')
+devtools::install_github("unreno/MGMS2")
+
+library('MGMS2')
+```
+
+###	Usage
+
+```R
+library('MGMS2')
+
+MGMS2::testfunction()
+```
+
+###	Removal
+
+```R
+remove.packages("MGMS2")
+```
+
+
+
+
+
+
+
+
+##	Developer
+
+###	Creation
 
 
 ```R
@@ -22,7 +55,7 @@ Is that what its supposed to do?
 
 
 
-##	Creation / Updation / Posting
+###	Creation / Updation / Posting
 
 Create/Edit `.R` files in `R/` folder with properly formated documentation above functions.
 
@@ -34,6 +67,12 @@ library('devtools')
 
 document()
 ```
+
+Or from the bash command line ...
+```BASH
+R -e 'library(devtools);document()'
+```
+
 
 
 
@@ -51,6 +90,11 @@ MGMS2::testfunction()
 remove.packages("MGMS2")
 ```
 
+Or from the bash command line ...
+```BASH
+R -e 'library(devtools);document();setwd("..");install("MGMS2",upgrade=FALSE)'
+```
+
 
 
 Then commit and push to github repo
@@ -62,47 +106,13 @@ git push
 
 
 
-##	Installation
-
-```R
-devtools::install_github("unreno/MGMS2")
-
-library('MGMS2')
-```
-
-
-##	Usage
-
-
-```R
-library('MGMS2')
-
-MGMS2::testfunction()
-```
-
-
-
-
-
-##	Removal
-
-```R
-remove.packages("MGMS2")
-```
-
-
-
 ##	References
 
 https://hilaryparker.com/2014/04/29/writing-an-r-package-from-scratch/
 
-https://github.com/kbroman/pkg_primer
-
-https://kbroman.org/pkg_primer/pages/proper.html
-
-https://kbroman.org/pkg_primer/pages/minimal.html
+https://kbroman.org/pkg_primer/
 
 https://aberdeenstudygroup.github.io/studyGroup/lessons/SG-T4-Rpackages/makingRpackages1_Intro/
 
-http://r-pkgs.had.co.nz/intro.html
+http://r-pkgs.had.co.nz
 

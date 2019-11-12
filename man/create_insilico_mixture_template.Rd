@@ -7,7 +7,9 @@
 create_insilico_mixture_template(mono.info, mz.tol = 0.5)
 }
 \arguments{
-\item{love}{Do you love cats? Defaults to TRUE.}
+\item{mono.info}{Add description}
+
+\item{mz.tol}{Add description}
 }
 \description{
 This function allows you to express your love of cats.

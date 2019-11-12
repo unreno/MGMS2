@@ -4,12 +4,27 @@
 \alias{summary_mono}
 \title{summary_mono}
 \usage{
-summary_mono(spectra.interest, minFrequency = 0.5,
-  align.tolerance = 5e-04, snr = 3, halfWindowSize = 20,
-  top.N = 50)
+summary_mono(
+  spectra.interest,
+  minFrequency = 0.5,
+  align.tolerance = 5e-04,
+  snr = 3,
+  halfWindowSize = 20,
+  top.N = 50
+)
 }
 \arguments{
-\item{love}{Do you love cats? Defaults to TRUE.}
+\item{spectra.interest}{Add description}
+
+\item{minFrequency}{Add description}
+
+\item{align.tolerance}{Add description}
+
+\item{snr}{Add description}
+
+\item{halfWindowSize}{Add description}
+
+\item{top.N}{Add description}
 }
 \description{
 This function allows you to express your love of cats.

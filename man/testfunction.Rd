@@ -6,9 +6,6 @@
 \usage{
 testfunction()
 }
-\arguments{
-\item{love}{Do you love cats? Defaults to TRUE.}
-}
 \description{
 testfunction
 }

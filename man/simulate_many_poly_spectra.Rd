@@ -4,14 +4,39 @@
 \alias{simulate_many_poly_spectra}
 \title{simulate_many_poly_spectra}
 \usage{
-simulate_many_poly_spectra(mono.info, nsim = 10000,
-  file = "MGMS2_insilico_spectra.pdf", mixture.ratio,
-  mixture.missing.prob.peak = 0.05, noise.peak.ratio = 0.05,
-  snr.basepeak = 500, noise.cv = 0.25, mz.range = c(1000, 2200),
-  mz.tol = 0.5)
+simulate_many_poly_spectra(
+  mono.info,
+  nsim = 10000,
+  file = "MGMS2_insilico_spectra.pdf",
+  mixture.ratio,
+  mixture.missing.prob.peak = 0.05,
+  noise.peak.ratio = 0.05,
+  snr.basepeak = 500,
+  noise.cv = 0.25,
+  mz.range = c(1000, 2200),
+  mz.tol = 0.5
+)
 }
 \arguments{
-\item{love}{Do you love cats? Defaults to TRUE.}
+\item{mono.info}{Add description}
+
+\item{nsim}{Add description}
+
+\item{file}{Add description}
+
+\item{mixture.ratio}{Add description}
+
+\item{mixture.missing.prob.peak}{Add description}
+
+\item{noise.peak.ratio}{Add description}
+
+\item{snr.basepeak}{Add description}
+
+\item{noise.cv}{Add description}
+
+\item{mz.range}{Add description}
+
+\item{mz.tol}{Add description}
 }
 \description{
 This function allows you to express your love of cats.

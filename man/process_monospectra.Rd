@@ -4,11 +4,21 @@
 \alias{process_monospectra}
 \title{process_monospectra}
 \usage{
-process_monospectra(file, mass.range = c(1000, 2200),
-  halfWindowSize = 20, SNIP.iteration = 60)
+process_monospectra(
+  file,
+  mass.range = c(1000, 2200),
+  halfWindowSize = 20,
+  SNIP.iteration = 60
+)
 }
 \arguments{
-\item{love}{Do you love cats? Defaults to TRUE.}
+\item{file}{Add description}
+
+\item{mass.range}{Add description}
+
+\item{halfWindowSize}{Add description}
+
+\item{SNIP.iteration}{Add description}
 }
 \description{
 This function allows you to express your love of cats.

@@ -7,7 +7,13 @@
 simulate_ind_spec_single(interest, mz.tol, species, strain)
 }
 \arguments{
-\item{love}{Do you love cats? Defaults to TRUE.}
+\item{interest}{Add description}
+
+\item{mz.tol}{Add description}
+
+\item{species}{Add description}
+
+\item{strain}{Add description}
 }
 \description{
 This function allows you to express your love of cats.

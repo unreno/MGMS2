@@ -4,13 +4,33 @@
 \alias{simulate_poly_spectra}
 \title{simulate_poly_spectra}
 \usage{
-simulate_poly_spectra(sim.template, mixture.ratio,
-  spectrum.name = "Spectrum", mixture.missing.prob.peak = 0.05,
-  noise.peak.ratio = 0.05, snr.basepeak = 500, noise.cv = 0.25,
-  mz.range = c(1000, 2200))
+simulate_poly_spectra(
+  sim.template,
+  mixture.ratio,
+  spectrum.name = "Spectrum",
+  mixture.missing.prob.peak = 0.05,
+  noise.peak.ratio = 0.05,
+  snr.basepeak = 500,
+  noise.cv = 0.25,
+  mz.range = c(1000, 2200)
+)
 }
 \arguments{
-\item{love}{Do you love cats? Defaults to TRUE.}
+\item{sim.template}{Add description}
+
+\item{mixture.ratio}{Add description}
+
+\item{spectrum.name}{Add description}
+
+\item{mixture.missing.prob.peak}{Add description}
+
+\item{noise.peak.ratio}{Add description}
+
+\item{snr.basepeak}{Add description}
+
+\item{noise.cv}{Add description}
+
+\item{mz.range}{Add description}
 }
 \description{
 This function allows you to express your love of cats.

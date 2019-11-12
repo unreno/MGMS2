@@ -7,7 +7,7 @@
 gather_summary(x)
 }
 \arguments{
-\item{love}{Do you love cats? Defaults to TRUE.}
+\item{x}{Add description}
 }
 \description{
 This function allows you to express your love of cats.

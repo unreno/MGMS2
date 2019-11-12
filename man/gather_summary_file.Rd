@@ -7,7 +7,7 @@
 gather_summary_file(directory)
 }
 \arguments{
-\item{love}{Do you love cats? Defaults to TRUE.}
+\item{directory}{Add description}
 }
 \description{
 This function allows you to express your love of cats.

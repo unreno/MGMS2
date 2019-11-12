@@ -7,7 +7,11 @@
 preprocessMS(spectra, halfWindowSize = 20, SNIP.iteration = 60)
 }
 \arguments{
-\item{love}{Do you love cats? Defaults to TRUE.}
+\item{spectra}{Add description}
+
+\item{halfWindowSize}{Add description}
+
+\item{SNIP.iteration}{Add description}
 }
 \description{
 This function allows you to express your love of cats.
