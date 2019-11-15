@@ -348,14 +348,31 @@ simulate_poly_spectra <- function(sim.template, mixture.ratio, spectrum.name='Sp
 	#normalize by the highest peak
 	sim.template$normalized.int = sim.template$normalized.int / max(sim.template$normalized.int)
 	
-	species.interest= names(mixture.ratio)[mixture.ratio>0]
+
+	#species.interest= names(mixture.ratio)[mixture.ratio>0]
+	#	Keep all species
+	species.interest= names(mixture.ratio)
+
+
+#change the palette to have purple instead of yellow
+col.pal <- palette()
+col.pal[7] <- "purple"
+palette(col.pal)
+
+
 	for (p in species.interest){
 		if (p==species.interest[1]){
 			plot(sim.template$mz[sim.template$species==p],
 				sim.template$normalized.int[sim.template$species==p],
 				ylim=c(0,1.1), xlim=mz.range, col=2, type="h", main=spectrum.name,
+				cex.axis=1.5, cex.lab=1.5,
 				xlab="m/z", ylab="Relative intensity")
-			legend("topleft", c(species.interest), lty=rep(1, length(species.interest)+1), col=c((1+1):(length(species.interest)+1)))
+			legend("topleft",
+				c(species.interest, "Noise"),
+				lty=rep(1, length(species.interest)+1),
+				cex=1.5,
+				col=c((1+1):(length(species.interest)+1),1)
+			)
 		}else{
 			points(sim.template$mz[sim.template$species==p],
 				sim.template$normalized.int[sim.template$species==p], col=which(species.interest==p)+1, type="h")
