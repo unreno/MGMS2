@@ -1,15 +1,12 @@
-##
-##species_list <- 	list(
-##	'Ab' = 'Acinetobacter baumannii',
-##	'Ec' = 'Enterobacter cloacae',
-##	'Ef' = 'Enterococus faecalis',
-##	'Kp' = 'Klebsiella pneumoniae',
-##	'Pa' = 'Pseudomonas aerugonusa',
-##	'Sa' = 'Staphylococcus aureus'
-##)
-##
-##species = names(species_list)
-##
+
+#' @import utils
+#' @importFrom grDevices dev.off palette pdf
+#' @importFrom graphics legend
+#' @importFrom stats qnorm rbinom rnorm runif sd
+#' @import MALDIquant
+#' @import MALDIquantForeign
+NULL
+
 
 #' install_check
 #'
@@ -25,6 +22,8 @@ install_check <- function(){
 #' filtermass
 #'
 #' Internal function. 
+#' @param spectra Description
+#' @param mass.range Description
 
 filtermass <- function(spectra, mass.range){
 	for (i in 1:length(spectra)){
@@ -39,13 +38,17 @@ filtermass <- function(spectra, mass.range){
 #' gather_summary
 #'
 #' This function combines outputs from \code{\link{summarize_monospectra}}.  
-#' @param x A list of multiple monomicrobial mass spectra information from \code{\link{summarize.monospectra}}.    
+#' @param x A list of multiple monomicrobial mass spectra information from \code{\link{summarize_monospectra}}.    
 #' @return A list of combined summary and the corresponding species. 
 #' @examples
 #' \dontrun{
-#' spectra.mono.summary.Ab <- summarize_monospectra(processed.obj=spectra.processed.Ab, species='Ab', directory='C:/')
-#' spectra.mono.summary.Sa <- summarize_monospectra(processed.obj=spectra.processed.Sa, species='Sa', directory='C:/')
-#' mono.info=gather.summary(c(spectra.mono.summary.Ab, spectra.mono.summary.Sa))
+#' spectra.mono.summary.Ab <- summarize_monospectra(
+#'    processed.obj=spectra.processed.Ab,
+#'    species='Ab', directory='C:/')
+#' spectra.mono.summary.Sa <- summarize_monospectra(
+#'    processed.obj=spectra.processed.Sa,
+#'    species='Sa', directory='C:/')
+#' mono.info=gather_summary(c(spectra.mono.summary.Ab, spectra.mono.summary.Sa))
 #' }
 #' @export
  
@@ -59,18 +62,19 @@ gather_summary <- function(x){
 
 #' gather_summary_file
 #'
-#' This function combines output files from \code{\link{summarize.monospectra}}. 
-#' @param directory A directory that contains summary files from \code{\link{summarize.monospectra}}.
+#' This function combines output files from \code{\link{summarize_monospectra}}. 
+#' @param directory A directory that contains summary files from \code{\link{summarize_monospectra}}.
 #' @return A list of combined summary and the corresponding species.
 #' @examples
 #' \dontrun{
-#' gather.summary.file(directory='C:/')
+#' gather_summary_file(directory='C:/')
 #' }
 #' @export 
  
 gather_summary_file <- function(directory){
 	files <- list.files(path=directory, pattern=".csv", full.names = TRUE)
-	pool <- list(); species <- NULL
+	pool <- list()
+	species <- NULL
 	for (i in 1:length(files)){
 		pool[[i]] <- read.csv(file=files[i])
 		species[i] <- as.character(pool[[i]]$species[1])
@@ -82,6 +86,9 @@ gather_summary_file <- function(directory){
 #' preprocessMS
 #'
 #' Internal function. 
+#' @param spectra Description
+#' @param halfWindowSize Description
+#' @param SNIP.iteration Description
 
 preprocessMS <- function(spectra, halfWindowSize=20, SNIP.iteration=60){
 	spectra <- transformIntensity(spectra, method="sqrt")
@@ -94,7 +101,7 @@ preprocessMS <- function(spectra, halfWindowSize=20, SNIP.iteration=60){
 #' summarize_monospectra
 #'
 #' This function summarize monomicrobial spectra and write the summary in the specified directory. 
-#' @param processed.obj A list from \code{\link{process.monospectra}} which contains top.N peaks information for each strain.  
+#' @param processed.obj A list from \code{\link{process_monospectra}} which contains top.N peaks information for each strain.  
 #' @param species Species name.
 #' @param directory Directory.
 #' @param minFrequency Percentage value. A minimum occurrence proportion required for building a reference peaks. All peaks with their occurence proportion less than minFrequency will be moved. (Default: 0.50). See \code{\link[MALDIquant]{filterPeaks}} and \code{\link[MALDIquant]{referencePeaks}} for details.
@@ -105,12 +112,14 @@ preprocessMS <- function(spectra, halfWindowSize=20, SNIP.iteration=60){
 #' @return A data frame that contains the peaks informations: m/z, mean log intensity, standard deviation of log intensity, missing rate of peaks. In addition, it also contains species and strain information. 
 #' @examples
 #' \dontrun{
-#' spectra.processed.Ab <- process_monospectra(file='Data/Acinetobacter baumannii - sen/list.txt', 
-#' mass.range=c(1000,2200))
+#' spectra.processed.Ab <- process_monospectra(
+#'    file='Data/Acinetobacter baumannii - sen/list.txt', 
+#'    mass.range=c(1000,2200))
 #' }
 #' \dontrun{
-#' spectra.mono.summary.Ab <- summarize_monospectra(processed.obj=spectra.processed.Ab, species='Ab',
-#' directory='Mix_Final')
+#' spectra.mono.summary.Ab <- summarize_monospectra(
+#'    processed.obj=spectra.processed.Ab, species='Ab',
+#'    directory='Mix_Final')
 #' }
 #' @export
 
@@ -141,7 +150,9 @@ summarize_monospectra <- function(processed.obj, species, directory, minFrequenc
 #' @return A list of processed monobacterial spectra, and their strain numbers, a vector of unique strains, and strain names. 
 #' @examples
 #' \dontrun{
-#' spectra.processed.Ab <- process_monospectra(file='Data/Acinetobacter baumannii - sen/list.txt', mass.range=c(1000,2200))
+#' spectra.processed.Ab <- process_monospectra(
+#'    file='Data/Acinetobacter baumannii - sen/list.txt',
+#'    mass.range=c(1000,2200))
 #' }
 #' @details 
 #' This tab-delimited file contains a sample desription. 
@@ -179,6 +190,12 @@ process_monospectra <- function(file, mass.range=c(1000,2200), halfWindowSize=20
 #' summary_mono
 #'
 #' Internal file. 
+#' @param spectra.interest Description
+#' @param minFrequency Description
+#' @param align.tolerance Description
+#' @param snr Description
+#' @param halfWindowSize Description
+#' @param top.N Description
 
 summary_mono <- function(spectra.interest, minFrequency=0.50, align.tolerance=0.0005, snr=3, halfWindowSize=20, top.N=50){
 	ref.peak <- detectPeaks(spectra.interest, method="MAD", halfWindowSize = halfWindowSize, SNR=snr)
@@ -216,6 +233,7 @@ summary_mono <- function(spectra.interest, minFrequency=0.50, align.tolerance=0.
 #' read_summary_file
 #'
 #'Internal file. 
+#' @param files Description
 
 read_summary_file <- function(files){
 	pool <- list()
@@ -236,6 +254,10 @@ read_summary_file <- function(files){
 #' simulate_ind_spec_single
 #'
 #' Internal file. 
+#' @param interest Description
+#' @param mz.tol Description
+#' @param species Description
+#' @param strain Description
 
 simulate_ind_spec_single <- function(interest, mz.tol, species, strain){
 	spec <- NULL
@@ -257,6 +279,10 @@ simulate_ind_spec_single <- function(interest, mz.tol, species, strain){
 #' build_bin_sim_spec
 #'
 #' Internal file. 
+#' @param bin.mass Desciption
+#' @param target Desciption
+#' @param bin.size Desciption
+
 
 build_bin_sim_spec <- function(bin.mass, target, bin.size=1){
 	bin.sim = chosen.mz = mid.mass = array(c(0), dim=length(bin.mass))

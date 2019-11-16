@@ -41,6 +41,8 @@ Ab9.mzXML	3	SM1660
 }
 \examples{
 \dontrun{
-spectra.processed.Ab <- process_monospectra(file='Data/Acinetobacter baumannii - sen/list.txt', mass.range=c(1000,2200))
+spectra.processed.Ab <- process_monospectra(
+   file='Data/Acinetobacter baumannii - sen/list.txt',
+   mass.range=c(1000,2200))
 }
 }

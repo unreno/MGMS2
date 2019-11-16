@@ -13,6 +13,19 @@ summary_mono(
   top.N = 50
 )
 }
+\arguments{
+\item{spectra.interest}{Description}
+
+\item{minFrequency}{Description}
+
+\item{align.tolerance}{Description}
+
+\item{snr}{Description}
+
+\item{halfWindowSize}{Description}
+
+\item{top.N}{Description}
+}
 \description{
 Internal file.
 }

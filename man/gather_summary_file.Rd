@@ -7,16 +7,16 @@
 gather_summary_file(directory)
 }
 \arguments{
-\item{directory}{A directory that contains summary files from \code{\link{summarize.monospectra}}.}
+\item{directory}{A directory that contains summary files from \code{\link{summarize_monospectra}}.}
 }
 \value{
 A list of combined summary and the corresponding species.
 }
 \description{
-This function combines output files from \code{\link{summarize.monospectra}}.
+This function combines output files from \code{\link{summarize_monospectra}}.
 }
 \examples{
 \dontrun{
-gather.summary.file(directory='C:/')
+gather_summary_file(directory='C:/')
 }
 }

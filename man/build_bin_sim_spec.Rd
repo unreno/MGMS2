@@ -6,6 +6,13 @@
 \usage{
 build_bin_sim_spec(bin.mass, target, bin.size = 1)
 }
+\arguments{
+\item{bin.mass}{Desciption}
+
+\item{target}{Desciption}
+
+\item{bin.size}{Desciption}
+}
 \description{
 Internal file.
 }

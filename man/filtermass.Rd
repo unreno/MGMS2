@@ -6,6 +6,11 @@
 \usage{
 filtermass(spectra, mass.range)
 }
+\arguments{
+\item{spectra}{Description}
+
+\item{mass.range}{Description}
+}
 \description{
 Internal function.
 }

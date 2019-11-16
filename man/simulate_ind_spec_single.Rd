@@ -6,6 +6,15 @@
 \usage{
 simulate_ind_spec_single(interest, mz.tol, species, strain)
 }
+\arguments{
+\item{interest}{Description}
+
+\item{mz.tol}{Description}
+
+\item{species}{Description}
+
+\item{strain}{Description}
+}
 \description{
 Internal file.
 }

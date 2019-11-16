@@ -6,6 +6,9 @@
 \usage{
 read_summary_file(files)
 }
+\arguments{
+\item{files}{Description}
+}
 \description{
 Internal file.
 }

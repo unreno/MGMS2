@@ -16,7 +16,7 @@ summarize_monospectra(
 )
 }
 \arguments{
-\item{processed.obj}{A list from \code{\link{process.monospectra}} which contains top.N peaks information for each strain.}
+\item{processed.obj}{A list from \code{\link{process_monospectra}} which contains top.N peaks information for each strain.}
 
 \item{species}{Species name.}
 
@@ -40,11 +40,13 @@ This function summarize monomicrobial spectra and write the summary in the speci
 }
 \examples{
 \dontrun{
-spectra.processed.Ab <- process_monospectra(file='Data/Acinetobacter baumannii - sen/list.txt', 
-mass.range=c(1000,2200))
+spectra.processed.Ab <- process_monospectra(
+   file='Data/Acinetobacter baumannii - sen/list.txt', 
+   mass.range=c(1000,2200))
 }
 \dontrun{
-spectra.mono.summary.Ab <- summarize_monospectra(processed.obj=spectra.processed.Ab, species='Ab',
-directory='Mix_Final')
+spectra.mono.summary.Ab <- summarize_monospectra(
+   processed.obj=spectra.processed.Ab, species='Ab',
+   directory='Mix_Final')
 }
 }

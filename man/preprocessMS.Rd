@@ -6,6 +6,13 @@
 \usage{
 preprocessMS(spectra, halfWindowSize = 20, SNIP.iteration = 60)
 }
+\arguments{
+\item{spectra}{Description}
+
+\item{halfWindowSize}{Description}
+
+\item{SNIP.iteration}{Description}
+}
 \description{
 Internal function.
 }
