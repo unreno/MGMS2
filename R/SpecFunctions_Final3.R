@@ -1,42 +1,29 @@
+##
+##species_list <- 	list(
+##	'Ab' = 'Acinetobacter baumannii',
+##	'Ec' = 'Enterobacter cloacae',
+##	'Ef' = 'Enterococus faecalis',
+##	'Kp' = 'Klebsiella pneumoniae',
+##	'Pa' = 'Pseudomonas aerugonusa',
+##	'Sa' = 'Staphylococcus aureus'
+##)
+##
+##species = names(species_list)
+##
 
-#' @export
-species_list <- 	list(
-	'Ab' = 'Acinetobacter baumannii',
-	'Ec' = 'Enterobacter cloacae',
-	'Ef' = 'Enterococus faecalis',
-	'Kp' = 'Klebsiella pneumoniae',
-	'Pa' = 'Pseudomonas aerugonusa',
-	'Sa' = 'Staphylococcus aureus'
-)
-
-#' @export
-species = names(species_list)
-
-
-
-
-
-#' testfunction
+#' install_check
 #'
-##' testfunction
-##' @keywords cats
-#' @export
-#' @examples
-#' testfunction()
+#' install_check function.
+#' @return Print MGMS2 install_check in R concole. 
+#' @examples install_check()
 
-testfunction <- function(){
-	message("MGMS2 testfunction")
+install_check <- function(){
+	message("MGMS2 install_check")
 }
 
 #' filtermass
 #'
-##' This function allows you to express your love of cats.
-##' @param spectra	Add description
-##' @param mass.range	Add description
-##' @keywords cats
-#' @export
-##' @examples
-##' filtermass()
+#' Internal function. 
 
 filtermass <- function(spectra, mass.range){
 	for (i in 1:length(spectra)){
@@ -50,13 +37,17 @@ filtermass <- function(spectra, mass.range){
 
 #' gather_summary
 #'
-##' This function allows you to express your love of cats.
-##' @param x	Add description
-##' @keywords cats
+#' This function combines outputs from \code{\link{summarize_monospectra}}.  
+#' @param x A list of multiple monomicrobial mass spectra information from \code{\link{summarize.monospectra}}.    
+#' @return A list of combined summary and the corresponding species. 
+#' @examples
+#' \dontrun{
+#' spectra.mono.summary.Ab <- summarize_monospectra(processed.obj=spectra.processed.Ab, species='Ab', directory='C:/')
+#' spectra.mono.summary.Sa <- summarize_monospectra(processed.obj=spectra.processed.Sa, species='Sa', directory='C:/')
+#' mono.info=gather.summary(c(spectra.mono.summary.Ab, spectra.mono.summary.Sa))
+#' }
 #' @export
-##' @examples
-##' testfunction()
-
+ 
 gather_summary <- function(x){
 	species <- NULL
 	for (i in 1:length(x)){
@@ -67,13 +58,15 @@ gather_summary <- function(x){
 
 #' gather_summary_file
 #'
-##' This function allows you to express your love of cats.
-##' @param directory	Add description
-##' @keywords cats
-#' @export
-##' @examples
-##' testfunction()
-
+#' This function combines output files from \code{\link{summarize.monospectra}}. 
+#' @param directory A directory that contains summary files from \code{\link{summarize.monospectra}}.
+#' @return A list of combined summary and the corresponding species.
+#' @examples
+#' \dontrun{
+#' gather.summary.file(directory='C:/')
+#' }
+#' @export 
+ 
 gather_summary_file <- function(directory){
 	files <- list.files(path=directory, pattern=".csv", full.names = TRUE)
 	pool <- list(); species <- NULL
@@ -87,14 +80,7 @@ gather_summary_file <- function(directory){
 
 #' preprocessMS
 #'
-##' This function allows you to express your love of cats.
-##' @param spectra	Add description
-##' @param halfWindowSize	Add description
-##' @param SNIP.iteration	Add description
-##' @keywords cats
-#' @export
-##' @examples
-##' testfunction()
+#' Internal function. 
 
 preprocessMS <- function(spectra, halfWindowSize=20, SNIP.iteration=60){
 	spectra <- transformIntensity(spectra, method="sqrt")
@@ -106,19 +92,26 @@ preprocessMS <- function(spectra, halfWindowSize=20, SNIP.iteration=60){
 
 #' summarize_monospectra
 #'
-##' This function allows you to express your love of cats.
-##' @param processed.obj	Add description
-##' @param species	Add description
-##' @param directory	Add description
-##' @param minFrequency	Add description
-##' @param align.tolerance	Add description
-##' @param snr	Add description
-##' @param halfWindowSize	Add description
-##' @param top.N	Add description
-##' @keywords cats
+#' This function summarize monomicrobial spectra and write the summary in the specified directory. 
+#' @param processed.obj A list from \code{\link{process.monospectra}} which contains top.N peaks information for each strain.  
+#' @param species Species name.
+#' @param directory Directory.
+#' @param minFrequency Percentage value. A minimum occurrence proportion required for building a reference peaks. All peaks with their occurence proportion less than minFrequency will be moved. (Default: 0.50). See \code{\link[MALDIquant]{filterPeaks}} and \code{\link[MALDIquant]{referencePeaks}} for details.
+#' @param align.tolerance Mass tolerance. Must be multiplied by 10^-6 for ppm. (Default: 0.0005). 	
+#' @param snr Signal-to-noise ratio. (Default: 3). 
+#' @param halfWindowSize The highest peaks in the given window (+/-halfWindowSize) will be recognized as peaks. (Default: 20). See \code{\link[MALDIquant]{detectPeaks}} for details.  
+#' @param top.N The top N peaks will be chosen for the analysis. An integer value. (Default: 50). 
+#' @return A data frame that contains the peaks informations: m/z, mean log intensity, standard deviation of log intensity, missing rate of peaks. In addition, it also contains species and strain information. 
+#' @examples
+#' \dontrun{
+#' spectra.processed.Ab <- process_monospectra(file='Data/Acinetobacter baumannii - sen/list.txt', 
+#' mass.range=c(1000,2200))
+#' }
+#' \dontrun{
+#' spectra.mono.summary.Ab <- summarize_monospectra(processed.obj=spectra.processed.Ab, species='Ab',
+#' directory='Mix_Final')
+#' }
 #' @export
-##' @examples
-##' testfunction()
 
 summarize_monospectra <- function(processed.obj, species, directory, minFrequency=0.50, align.tolerance=0.0005, snr=3, halfWindowSize=20, top.N=50){
 	spec.summary.comb <- list()
@@ -139,15 +132,29 @@ summarize_monospectra <- function(processed.obj, species, directory, minFrequenc
 
 #' process_monospectra
 #'
-##' This function allows you to express your love of cats.
-##' @param file	Add description
-##' @param mass.range	Add description
-##' @param halfWindowSize	Add description
-##' @param SNIP.iteration	Add description
-##' @keywords cats
+#' This function processes multiple mzXML files which are listed in the file that an user specifies. 
+#' @param file A file name. This file is a tab-delimited file which contains the following columns: file names, strain.no, and strain. See below for details. 
+#' @param mass.range The m/z range that an user want to consider for the analysis. (Default: c(1000,2200)).
+#' @param halfWindowSize A half window size used for the smoothing the intensity values. (Default: 20). See \code{\link[MALDIquant]{smoothIntensity}} for details.  
+#' @param SNIP.iteration An interaction used to remove the baseline of an spectrum. (Default: 60). See \code{\link[MALDIquant]{removeBaseline}} for details. 
+#' @return A list of processed monobacterial spectra, and their strain numbers, a vector of unique strains, and strain names. 
+#' @examples
+#' \dontrun{
+#' spectra.processed.Ab <- process_monospectra(file='Data/Acinetobacter baumannii - sen/list.txt', mass.range=c(1000,2200))
+#' }
+#' @details 
+#' This tab-delimited file contains a sample desription. 
+#' file.name	strain.no	strain
+#' Ab1.mzXML	1	EAS025
+#' Ab2.mzXML	1	EAS025
+#' Ab3.mzXML	1	EAS025
+#' Ab4.mzXML	2	EAS028
+#' Ab5.mzXML	2	EAS028
+#' Ab6.mzXML	2	EAS028
+#' Ab7.mzXML	3	SM1660
+#' Ab8.mzXML	3	SM1660
+#' Ab9.mzXML	3	SM1660
 #' @export
-##' @examples
-##' testfunction()
 
 process_monospectra <- function(file, mass.range=c(1000,2200), halfWindowSize=20, SNIP.iteration=60){
 	file.interest <- read.csv(file=file, "\t", header=TRUE)
@@ -170,17 +177,7 @@ process_monospectra <- function(file, mass.range=c(1000,2200), halfWindowSize=20
 
 #' summary_mono
 #'
-##' This function allows you to express your love of cats.
-##' @param spectra.interest	Add description
-##' @param minFrequency	Add description
-##' @param align.tolerance	Add description
-##' @param snr	Add description
-##' @param halfWindowSize	Add description
-##' @param top.N	Add description
-##' @keywords cats
-#' @export
-##' @examples
-##' testfunction()
+#' Internal file. 
 
 summary_mono <- function(spectra.interest, minFrequency=0.50, align.tolerance=0.0005, snr=3, halfWindowSize=20, top.N=50){
 	ref.peak <- detectPeaks(spectra.interest, method="MAD", halfWindowSize = halfWindowSize, SNR=snr)
@@ -217,12 +214,7 @@ summary_mono <- function(spectra.interest, minFrequency=0.50, align.tolerance=0.
 
 #' read_summary_file
 #'
-##' This function allows you to express your love of cats.
-##' @param files	Add description
-##' @keywords cats
-#' @export
-##' @examples
-##' testfunction()
+#'Internal file. 
 
 read_summary_file <- function(files){
 	pool <- list()
@@ -242,15 +234,7 @@ read_summary_file <- function(files){
 
 #' simulate_ind_spec_single
 #'
-##' This function allows you to express your love of cats.
-##' @param interest	Add description
-##' @param mz.tol	Add description
-##' @param species	Add description
-##' @param strain	Add description
-##' @keywords cats
-#' @export
-##' @examples
-##' testfunction()
+#' Internal file. 
 
 simulate_ind_spec_single <- function(interest, mz.tol, species, strain){
 	spec <- NULL
@@ -271,14 +255,7 @@ simulate_ind_spec_single <- function(interest, mz.tol, species, strain){
 
 #' build_bin_sim_spec
 #'
-##' This function allows you to express your love of cats.
-##' @param bin.mass	Add description
-##' @param target	Add description
-##' @param bin.size	Add description
-##' @keywords cats
-#' @export
-##' @examples
-##' testfunction()
+#' Internal file. 
 
 build_bin_sim_spec <- function(bin.mass, target, bin.size=1){
 	bin.sim = chosen.mz = mid.mass = array(c(0), dim=length(bin.mass))
@@ -299,19 +276,26 @@ build_bin_sim_spec <- function(bin.mass, target, bin.size=1){
 
 #' simulate_poly_spectra
 #'
-##' This function allows you to express your love of cats.
-##' @param sim.template	Add description
-##' @param mixture.ratio	Add description
-##' @param spectrum.name	Add description
-##' @param mixture.missing.prob.peak	Add description
-##' @param noise.peak.ratio	Add description
-##' @param snr.basepeak	Add description
-##' @param noise.cv	Add description
-##' @param mz.range	Add description
-##' @keywords cats
+#' This function takes simulated m/z and intensities of peaks from \code{\link{create_insilico_mixture_template}} and modify them based on given parameters. 
+#' @param sim.template A data frame which contains m/z, log intensitiy, normalized intensity values and missing rates of peaks. There are also species and strain information. An object of \code{\link{create_insilico_mixture_template}}. 
+#' @param mixture.ratio A list of bacterial mixture ratios for given bacterial species in sim.template. 
+#' @param spectrum.name A character. An user can define the spectrum name. (Default: 'Spectrum'). 
+#' @param mixture.missing.prob.peak A real value. The missing probability caused by mixing multiple bacteria species. (Default: 0.05)
+#' @param noise.peak.ratio A ratio between the numbers of noise and signal peaks. (Default: 0.05)
+#' @param snr.basepeak A (base peak) signal to noise ratio. (Default: 500)
+#' @param noise.cv A coefficient of variation of noise peaks. (Default: 0.25)
+#' @param mz.range A range of m/z values. (Default: c(1000,2200))
+#' @return A data frame. A modified version of \code{sim.template}.  
+#' @examples
+#' #Assuming that there are only bacteria species Ab and Ec in sim.template. 
+#' mixture.ratio <- list()
+#' mixture.ratio['Ab']=1
+#' mixture.ratio['Ec']=0.5
+#' \dontrun{
+#' sim.template <- create_insilico_mixture_template(mono.info) 
+#' insilico.spectrum <- simulate_poly_spectra(sim.template, mixture.ratio)
+#' }
 #' @export
-##' @examples
-##' testfunction()
 
 simulate_poly_spectra <- function(sim.template, mixture.ratio, spectrum.name='Spectrum',
 		mixture.missing.prob.peak = 0.05, noise.peak.ratio = 0.05, snr.basepeak = 500 , noise.cv = 0.25, mz.range=c(1000,2200)){
@@ -347,18 +331,16 @@ simulate_poly_spectra <- function(sim.template, mixture.ratio, spectrum.name='Sp
 	
 	#normalize by the highest peak
 	sim.template$normalized.int = sim.template$normalized.int / max(sim.template$normalized.int)
-	
+
 
 	#species.interest= names(mixture.ratio)[mixture.ratio>0]
 	#	Keep all species
 	species.interest= names(mixture.ratio)
 
-
-#change the palette to have purple instead of yellow
-col.pal <- palette()
-col.pal[7] <- "purple"
-palette(col.pal)
-
+	#change the palette to have purple instead of yellow
+	col.pal <- palette()
+	col.pal[7] <- "purple"
+	palette(col.pal)
 
 	for (p in species.interest){
 		if (p==species.interest[1]){
@@ -373,6 +355,7 @@ palette(col.pal)
 				cex=1.5,
 				col=c((1+1):(length(species.interest)+1),1)
 			)
+	
 		}else{
 			points(sim.template$mz[sim.template$species==p],
 				sim.template$normalized.int[sim.template$species==p], col=which(species.interest==p)+1, type="h")
@@ -388,21 +371,23 @@ palette(col.pal)
 
 #' simulate_many_poly_spectra
 #'
-##' This function allows you to express your love of cats.
-##' @param mono.info	Add description
-##' @param nsim	Add description
-##' @param file	Add description
-##' @param mixture.ratio	Add description
-##' @param mixture.missing.prob.peak	Add description
-##' @param noise.peak.ratio	Add description
-##' @param snr.basepeak	Add description
-##' @param noise.cv	Add description
-##' @param mz.range	Add description
-##' @param mz.tol	Add description
-##' @keywords cats
+#' The function create simulated mass spectra in pdf file and return simulated mass spectra (m/z and intensity values of peaks). 
+#' @param mono.info A list output of \code{\link{gather_summary}} or {\code{\link{gather_summary_file}}}. 
+#' @param nsim The number of simulated spectra. (Default: 10000)
+#' @param file An output file name. (Default: MGMS2_insilico_spectra.pdf)
+#' @param mixture.ratio A list of bacterial mixture ratios for given bacterial species in sim.template.
+#' @param mixture.missing.prob.peak A real value. The missing probability caused by mixing multiple bacteria species. (Default: 0.05)
+#' @param noise.peak.ratio A ratio between the numbers of noise and signal peaks. (Default: 0.05)
+#' @param snr.basepeak A (base peak) signal to noise ratio. (Default: 5000)
+#' @param noise.cv A coefficient of variation of noise peaks. (Default: 0.25)
+#' @param mz.range A range of m/z values. (Default: c(1000,2200))
+#' @param mz.tol m/z tolerance. (Default: 0.5)
+#' @return Simulated mass spectra. 
+#' @examples
+#' \dontrun{
+#' simulate_many_poly_spectra(mono.info)
+#' }
 #' @export
-##' @examples
-##' testfunction()
 
 simulate_many_poly_spectra <- function(mono.info, nsim=10000, file='MGMS2_insilico_spectra.pdf', mixture.ratio,
 		mixture.missing.prob.peak = 0.05, noise.peak.ratio = 0.05,
@@ -424,13 +409,15 @@ simulate_many_poly_spectra <- function(mono.info, nsim=10000, file='MGMS2_insili
 
 #' create_insilico_mixture_template
 #'
-##' This function allows you to express your love of cats.
-##' @param mono.info	Add description
-##' @param mz.tol	Add description
-##' @keywords cats
+#' This function generates an intial template for simulated mass spectra. 
+#' @param mono.info An output of \code{\link{gather_summary}}. 
+#' @param mz.tol A m/z tolerance in Da. (Default: 0.5)
+#' @return A data frame which contains simulated m/z, log intensity, and normalized intensity values of peaks. 
+#' @examples
+#' \dontrun{
+#' create_insilico_mixture_template(mono.info)
+#' }
 #' @export
-##' @examples
-##' create_insilico_mixture_template()
 
 create_insilico_mixture_template <- function(mono.info, mz.tol=0.5){
 	spec.mixture <- NULL

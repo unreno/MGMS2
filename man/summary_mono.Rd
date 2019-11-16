@@ -13,23 +13,6 @@ summary_mono(
   top.N = 50
 )
 }
-\arguments{
-\item{spectra.interest}{Add description}
-
-\item{minFrequency}{Add description}
-
-\item{align.tolerance}{Add description}
-
-\item{snr}{Add description}
-
-\item{halfWindowSize}{Add description}
-
-\item{top.N}{Add description}
-}
 \description{
-This function allows you to express your love of cats.
+Internal file.
 }
-\examples{
-testfunction()
-}
-\keyword{cats}

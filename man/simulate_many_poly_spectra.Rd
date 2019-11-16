@@ -18,30 +18,34 @@ simulate_many_poly_spectra(
 )
 }
 \arguments{
-\item{mono.info}{Add description}
+\item{mono.info}{A list output of \code{\link{gather_summary}} or {\code{\link{gather_summary_file}}}.}
 
-\item{nsim}{Add description}
+\item{nsim}{The number of simulated spectra. (Default: 10000)}
 
-\item{file}{Add description}
+\item{file}{An output file name. (Default: MGMS2_insilico_spectra.pdf)}
 
-\item{mixture.ratio}{Add description}
+\item{mixture.ratio}{A list of bacterial mixture ratios for given bacterial species in sim.template.}
 
-\item{mixture.missing.prob.peak}{Add description}
+\item{mixture.missing.prob.peak}{A real value. The missing probability caused by mixing multiple bacteria species. (Default: 0.05)}
 
-\item{noise.peak.ratio}{Add description}
+\item{noise.peak.ratio}{A ratio between the numbers of noise and signal peaks. (Default: 0.05)}
 
-\item{snr.basepeak}{Add description}
+\item{snr.basepeak}{A (base peak) signal to noise ratio. (Default: 5000)}
 
-\item{noise.cv}{Add description}
+\item{noise.cv}{A coefficient of variation of noise peaks. (Default: 0.25)}
 
-\item{mz.range}{Add description}
+\item{mz.range}{A range of m/z values. (Default: c(1000,2200))}
 
-\item{mz.tol}{Add description}
+\item{mz.tol}{m/z tolerance. (Default: 0.5)}
+}
+\value{
+Simulated mass spectra.
 }
 \description{
-This function allows you to express your love of cats.
+The function create simulated mass spectra in pdf file and return simulated mass spectra (m/z and intensity values of peaks).
 }
 \examples{
-testfunction()
+\dontrun{
+simulate_many_poly_spectra(mono.info)
 }
-\keyword{cats}
+}

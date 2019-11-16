@@ -20,7 +20,7 @@ library('MGMS2')
 ```R
 library('MGMS2')
 
-MGMS2::testfunction()
+MGMS2::install_check()
 ```
 
 ###	Removal
@@ -86,7 +86,7 @@ install('MGMS2',upgrade=FALSE)
 library('MGMS2')
 lsf.str("package:MGMS2")
 
-MGMS2::testfunction()
+MGMS2::install_check()
 remove.packages("MGMS2")
 ```
 

@@ -7,14 +7,18 @@
 create_insilico_mixture_template(mono.info, mz.tol = 0.5)
 }
 \arguments{
-\item{mono.info}{Add description}
+\item{mono.info}{An output of \code{\link{gather_summary}}.}
 
-\item{mz.tol}{Add description}
+\item{mz.tol}{A m/z tolerance in Da. (Default: 0.5)}
+}
+\value{
+A data frame which contains simulated m/z, log intensity, and normalized intensity values of peaks.
 }
 \description{
-This function allows you to express your love of cats.
+This function generates an intial template for simulated mass spectra.
 }
 \examples{
-create_insilico_mixture_template()
+\dontrun{
+create_insilico_mixture_template(mono.info)
 }
-\keyword{cats}
+}

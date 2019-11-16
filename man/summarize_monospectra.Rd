@@ -16,26 +16,35 @@ summarize_monospectra(
 )
 }
 \arguments{
-\item{processed.obj}{Add description}
+\item{processed.obj}{A list from \code{\link{process.monospectra}} which contains top.N peaks information for each strain.}
 
-\item{species}{Add description}
+\item{species}{Species name.}
 
-\item{directory}{Add description}
+\item{directory}{Directory.}
 
-\item{minFrequency}{Add description}
+\item{minFrequency}{Percentage value. A minimum occurrence proportion required for building a reference peaks. All peaks with their occurence proportion less than minFrequency will be moved. (Default: 0.50). See \code{\link[MALDIquant]{filterPeaks}} and \code{\link[MALDIquant]{referencePeaks}} for details.}
 
-\item{align.tolerance}{Add description}
+\item{align.tolerance}{Mass tolerance. Must be multiplied by 10^-6 for ppm. (Default: 0.0005).}
 
-\item{snr}{Add description}
+\item{snr}{Signal-to-noise ratio. (Default: 3).}
 
-\item{halfWindowSize}{Add description}
+\item{halfWindowSize}{The highest peaks in the given window (+/-halfWindowSize) will be recognized as peaks. (Default: 20). See \code{\link[MALDIquant]{detectPeaks}} for details.}
 
-\item{top.N}{Add description}
+\item{top.N}{The top N peaks will be chosen for the analysis. An integer value. (Default: 50).}
+}
+\value{
+A data frame that contains the peaks informations: m/z, mean log intensity, standard deviation of log intensity, missing rate of peaks. In addition, it also contains species and strain information.
 }
 \description{
-This function allows you to express your love of cats.
+This function summarize monomicrobial spectra and write the summary in the specified directory.
 }
 \examples{
-testfunction()
+\dontrun{
+spectra.processed.Ab <- process_monospectra(file='Data/Acinetobacter baumannii - sen/list.txt', 
+mass.range=c(1000,2200))
 }
-\keyword{cats}
+\dontrun{
+spectra.mono.summary.Ab <- summarize_monospectra(processed.obj=spectra.processed.Ab, species='Ab',
+directory='Mix_Final')
+}
+}

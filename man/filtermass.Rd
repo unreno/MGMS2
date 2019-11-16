@@ -6,15 +6,6 @@
 \usage{
 filtermass(spectra, mass.range)
 }
-\arguments{
-\item{spectra}{Add description}
-
-\item{mass.range}{Add description}
-}
 \description{
-This function allows you to express your love of cats.
+Internal function.
 }
-\examples{
-filtermass()
-}
-\keyword{cats}

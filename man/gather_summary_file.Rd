@@ -7,12 +7,16 @@
 gather_summary_file(directory)
 }
 \arguments{
-\item{directory}{Add description}
+\item{directory}{A directory that contains summary files from \code{\link{summarize.monospectra}}.}
+}
+\value{
+A list of combined summary and the corresponding species.
 }
 \description{
-This function allows you to express your love of cats.
+This function combines output files from \code{\link{summarize.monospectra}}.
 }
 \examples{
-testfunction()
+\dontrun{
+gather.summary.file(directory='C:/')
 }
-\keyword{cats}
+}

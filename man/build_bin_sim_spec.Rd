@@ -6,17 +6,6 @@
 \usage{
 build_bin_sim_spec(bin.mass, target, bin.size = 1)
 }
-\arguments{
-\item{bin.mass}{Add description}
-
-\item{target}{Add description}
-
-\item{bin.size}{Add description}
-}
 \description{
-This function allows you to express your love of cats.
+Internal file.
 }
-\examples{
-testfunction()
-}
-\keyword{cats}

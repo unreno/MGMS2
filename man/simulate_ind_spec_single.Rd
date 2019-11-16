@@ -6,19 +6,6 @@
 \usage{
 simulate_ind_spec_single(interest, mz.tol, species, strain)
 }
-\arguments{
-\item{interest}{Add description}
-
-\item{mz.tol}{Add description}
-
-\item{species}{Add description}
-
-\item{strain}{Add description}
-}
 \description{
-This function allows you to express your love of cats.
+Internal file.
 }
-\examples{
-testfunction()
-}
-\keyword{cats}

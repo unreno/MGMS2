@@ -12,18 +12,35 @@ process_monospectra(
 )
 }
 \arguments{
-\item{file}{Add description}
+\item{file}{A file name. This file is a tab-delimited file which contains the following columns: file names, strain.no, and strain. See below for details.}
 
-\item{mass.range}{Add description}
+\item{mass.range}{The m/z range that an user want to consider for the analysis. (Default: c(1000,2200)).}
 
-\item{halfWindowSize}{Add description}
+\item{halfWindowSize}{A half window size used for the smoothing the intensity values. (Default: 20). See \code{\link[MALDIquant]{smoothIntensity}} for details.}
 
-\item{SNIP.iteration}{Add description}
+\item{SNIP.iteration}{An interaction used to remove the baseline of an spectrum. (Default: 60). See \code{\link[MALDIquant]{removeBaseline}} for details.}
+}
+\value{
+A list of processed monobacterial spectra, and their strain numbers, a vector of unique strains, and strain names.
 }
 \description{
-This function allows you to express your love of cats.
+This function processes multiple mzXML files which are listed in the file that an user specifies.
+}
+\details{
+This tab-delimited file contains a sample desription. 
+file.name	strain.no	strain
+Ab1.mzXML	1	EAS025
+Ab2.mzXML	1	EAS025
+Ab3.mzXML	1	EAS025
+Ab4.mzXML	2	EAS028
+Ab5.mzXML	2	EAS028
+Ab6.mzXML	2	EAS028
+Ab7.mzXML	3	SM1660
+Ab8.mzXML	3	SM1660
+Ab9.mzXML	3	SM1660
 }
 \examples{
-testfunction()
+\dontrun{
+spectra.processed.Ab <- process_monospectra(file='Data/Acinetobacter baumannii - sen/list.txt', mass.range=c(1000,2200))
 }
-\keyword{cats}
+}

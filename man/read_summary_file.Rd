@@ -6,13 +6,6 @@
 \usage{
 read_summary_file(files)
 }
-\arguments{
-\item{files}{Add description}
-}
 \description{
-This function allows you to express your love of cats.
+Internal file.
 }
-\examples{
-testfunction()
-}
-\keyword{cats}

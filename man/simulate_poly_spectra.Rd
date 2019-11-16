@@ -16,26 +16,35 @@ simulate_poly_spectra(
 )
 }
 \arguments{
-\item{sim.template}{Add description}
+\item{sim.template}{A data frame which contains m/z, log intensitiy, normalized intensity values and missing rates of peaks. There are also species and strain information. An object of \code{\link{create_insilico_mixture_template}}.}
 
-\item{mixture.ratio}{Add description}
+\item{mixture.ratio}{A list of bacterial mixture ratios for given bacterial species in sim.template.}
 
-\item{spectrum.name}{Add description}
+\item{spectrum.name}{A character. An user can define the spectrum name. (Default: 'Spectrum').}
 
-\item{mixture.missing.prob.peak}{Add description}
+\item{mixture.missing.prob.peak}{A real value. The missing probability caused by mixing multiple bacteria species. (Default: 0.05)}
 
-\item{noise.peak.ratio}{Add description}
+\item{noise.peak.ratio}{A ratio between the numbers of noise and signal peaks. (Default: 0.05)}
 
-\item{snr.basepeak}{Add description}
+\item{snr.basepeak}{A (base peak) signal to noise ratio. (Default: 500)}
 
-\item{noise.cv}{Add description}
+\item{noise.cv}{A coefficient of variation of noise peaks. (Default: 0.25)}
 
-\item{mz.range}{Add description}
+\item{mz.range}{A range of m/z values. (Default: c(1000,2200))}
+}
+\value{
+A data frame. A modified version of \code{sim.template}.
 }
 \description{
-This function allows you to express your love of cats.
+This function takes simulated m/z and intensities of peaks from \code{\link{create_insilico_mixture_template}} and modify them based on given parameters.
 }
 \examples{
-testfunction()
+#Assuming that there are only bacteria species Ab and Ec in sim.template. 
+mixture.ratio <- list()
+mixture.ratio['Ab']=1
+mixture.ratio['Ec']=0.5
+\dontrun{
+sim.template <- create_insilico_mixture_template(mono.info) 
+insilico.spectrum <- simulate_poly_spectra(sim.template, mixture.ratio)
 }
-\keyword{cats}
+}
