@@ -12,8 +12,8 @@ Authors@R:
            email = "gwendt@unr.edu"))
 Author: So Young Ryu [aut], George Wendt [cre]
 Maintainer: George Wendt <gwendt@unr.edu>
-Description: Library for the Interactive Poly-bacterial In-silico Glycolipid Spectrum Simulator
-License: GPL-3
+Description: Library for the Interactive Poly-bacterial In-silico Glycolipid Spectrum Simulator.
+License: GPL-3 + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Depends:

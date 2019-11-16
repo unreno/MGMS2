@@ -8,6 +8,9 @@
 NULL
 
 
+utils::globalVariables(c("species"))
+
+
 #' install_check
 #'
 #' install_check function.

@@ -14,6 +14,10 @@ devtools::install_github("unreno/MGMS2")
 
 library('MGMS2')
 ```
+or
+```BASH
+R -e 'devtools::install_github("unreno/MGMS2")'
+```
 
 ###	Usage
 
@@ -93,6 +97,15 @@ remove.packages("MGMS2")
 Or from the bash command line ...
 ```BASH
 R -e 'library(devtools);document();setwd("..");install("MGMS2",upgrade=FALSE)'
+```
+
+
+Check for CRAN issues ...
+```BASH
+cd ..
+R CMD build MGMS2
+R CMD check MGMS2_0.0.0.tar.gz
+R CMD check --as-cran MGMS2_0.0.0.tar.gz
 ```
 
 
