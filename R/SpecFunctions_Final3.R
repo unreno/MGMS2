@@ -16,6 +16,7 @@
 #' install_check function.
 #' @return Print MGMS2 install_check in R concole. 
 #' @examples install_check()
+#' @export
 
 install_check <- function(){
 	message("MGMS2 install_check")

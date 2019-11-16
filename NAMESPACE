@@ -3,6 +3,7 @@
 export(create_insilico_mixture_template)
 export(gather_summary)
 export(gather_summary_file)
+export(install_check)
 export(process_monospectra)
 export(simulate_many_poly_spectra)
 export(simulate_poly_spectra)

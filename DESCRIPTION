@@ -1,18 +1,17 @@
 Package: MGMS2
-Title: Library for the Interactive Poly-bacterial In-silico Glycolipid Spectrum Simulator
+Title: Library for the Interactive Poly-Bacterial in-Silico Glycolipid Spectrum Simulator
 Version: 0.0.0
 Authors@R: 
-    person(given = "So Young",
+    c(person(given = "So Young",
            family = "Ryu",
            role = c("aut", "cre"),
-           email = "soyoungr@unr.edu",
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Maintainer@R: 
+           email = "soyoungr@unr.edu"),
     person(given = "George",
            family = "Wendt",
            role = c("aut", "cre"),
-           email = "gwendt@unr.edu",
-           comment = c(ORCID = "YOUR-ORCID-ID"))
+           email = "gwendt@unr.edu"))
+Author: So Young Ryu [aut, cre]
+Maintainer: George Wendt <gwendt@unr.edu>
 Description: Library for the Interactive Poly-bacterial In-silico Glycolipid Spectrum Simulator
 License: GPL-3
 Encoding: UTF-8
