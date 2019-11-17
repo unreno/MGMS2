@@ -25,8 +25,8 @@ install_check <- function(){
 #' filtermass
 #'
 #' Internal function. 
-#' @param spectra Description
-#' @param mass.range Description
+#' @param spectra DESCRIPTION NEEDED
+#' @param mass.range DESCRIPTION NEEDED
 
 filtermass <- function(spectra, mass.range){
 	for (i in 1:length(spectra)){
@@ -89,9 +89,9 @@ gather_summary_file <- function(directory){
 #' preprocessMS
 #'
 #' Internal function. 
-#' @param spectra Description
-#' @param halfWindowSize Description
-#' @param SNIP.iteration Description
+#' @param spectra DESCRIPTION NEEDED
+#' @param halfWindowSize DESCRIPTION NEEDED
+#' @param SNIP.iteration DESCRIPTION NEEDED
 
 preprocessMS <- function(spectra, halfWindowSize=20, SNIP.iteration=60){
 	spectra <- transformIntensity(spectra, method="sqrt")
@@ -193,12 +193,12 @@ process_monospectra <- function(file, mass.range=c(1000,2200), halfWindowSize=20
 #' summary_mono
 #'
 #' Internal file. 
-#' @param spectra.interest Description
-#' @param minFrequency Description
-#' @param align.tolerance Description
-#' @param snr Description
-#' @param halfWindowSize Description
-#' @param top.N Description
+#' @param spectra.interest DESCRIPTION NEEDED
+#' @param minFrequency DESCRIPTION NEEDED
+#' @param align.tolerance DESCRIPTION NEEDED
+#' @param snr DESCRIPTION NEEDED
+#' @param halfWindowSize DESCRIPTION NEEDED
+#' @param top.N DESCRIPTION NEEDED
 
 summary_mono <- function(spectra.interest, minFrequency=0.50, align.tolerance=0.0005, snr=3, halfWindowSize=20, top.N=50){
 	ref.peak <- detectPeaks(spectra.interest, method="MAD", halfWindowSize = halfWindowSize, SNR=snr)
@@ -236,7 +236,7 @@ summary_mono <- function(spectra.interest, minFrequency=0.50, align.tolerance=0.
 #' read_summary_file
 #'
 #'Internal file. 
-#' @param files Description
+#' @param files DESCRIPTION NEEDED
 
 read_summary_file <- function(files){
 	pool <- list()
@@ -257,10 +257,10 @@ read_summary_file <- function(files){
 #' simulate_ind_spec_single
 #'
 #' Internal file. 
-#' @param interest Description
-#' @param mz.tol Description
-#' @param species Description
-#' @param strain Description
+#' @param interest DESCRIPTION NEEDED
+#' @param mz.tol DESCRIPTION NEEDED
+#' @param species DESCRIPTION NEEDED
+#' @param strain DESCRIPTION NEEDED
 
 simulate_ind_spec_single <- function(interest, mz.tol, species, strain){
 	spec <- NULL
