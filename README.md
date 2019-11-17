@@ -151,3 +151,6 @@ https://aberdeenstudygroup.github.io/studyGroup/lessons/SG-T4-Rpackages/makingRp
 
 http://r-pkgs.had.co.nz
 
+https://r-pkgs.org/release.html
+
+
