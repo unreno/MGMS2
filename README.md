@@ -1,6 +1,6 @@
 # MGMS2
 
-Library for the Interactive Poly-bacterial In-silico Glycolipid Spectrum Simulator
+Library for the Interactive Poly-Bacterial in-Silico Glycolipid Spectrum Simulator
 
 
 ##	User
@@ -9,15 +9,30 @@ Library for the Interactive Poly-bacterial In-silico Glycolipid Spectrum Simulat
 ###	Installation
 
 ```R
-install.packages(c('MALDIquant','MALDIquantForeign'),type='source')
+install.packages(c("MALDIquant","MALDIquantForeign"),type="source")
 devtools::install_github("unreno/MGMS2")
-
-library('MGMS2')
+library("MGMS2")
 ```
 or
 ```BASH
 R -e 'devtools::install_github("unreno/MGMS2")'
 ```
+
+
+Eventually ...
+```R
+install.packages(c("MALDIquant","MALDIquantForeign"),type="source")
+install.packages("MGMS2")
+library("MGMS2")
+```
+or
+```BASH
+R -e 'install.packages("MGMS2")'
+```
+
+
+
+
 
 ###	Usage
 
@@ -100,6 +115,19 @@ R -e 'library(devtools);document();setwd("..");install("MGMS2",upgrade=FALSE)'
 ```
 
 
+
+Then commit and push to github repo
+```BASH
+git commit -m "<LIST UPDATES>" -a
+git push
+```
+
+
+
+https://cran.r-project.org/
+
+https://xmpalantir.wu.ac.at/cransubmit/
+
 Check for CRAN issues ...
 ```BASH
 cd ..
@@ -109,12 +137,6 @@ R CMD check --as-cran MGMS2_0.0.0.tar.gz
 ```
 
 
-
-Then commit and push to github repo
-```BASH
-git commit -m "<LIST UPDATES>" -a
-git push
-```
 
 
 
