@@ -1,16 +1,18 @@
 Package: MGMS2
 Title: Membrane Glycolipid Mass Spectrum Simulator for Polymicrobial Samples
 Version: 0.0.0
-Authors@R: 
-    c(person(given = "So Young",
-           family = "Ryu",
-           role = "aut",
-           email = "soyoungr@unr.edu"),
-    person(given = "George",
-           family = "Wendt",
-           role = "cre",
-           email = "gwendt@unr.edu"))
-Author: So Young Ryu [aut], George Wendt [cre]
+Authors@R: c(
+	person(given = "So Young",
+		family = "Ryu",
+		role = "aut",
+		email = "soyoungr@unr.edu",
+		comment = c(ORCID = "0000-0003-2347-7015")),
+	person(given = "George",
+		family = "Wendt",
+		role = "cre",
+		email = "gwendt@unr.edu",
+		comment = c(ORCID = "0000-0003-3608-9601")))
+Author: So Young Ryu [aut] (<https://orcid.org/0000-0003-2347-7015>), George Wendt [cre] (<https://orcid.org/0000-0003-3608-9601>)
 Maintainer: George Wendt <gwendt@unr.edu>
 Description: Generates in-silico polymicrobial membrane glycolipid mass spectra.
 License: GPL-3 + file LICENSE
