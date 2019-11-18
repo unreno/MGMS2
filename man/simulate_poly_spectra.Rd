@@ -36,15 +36,15 @@ simulate_poly_spectra(
 A data frame. A modified version of \code{sim.template}.
 }
 \description{
-This function takes simulated m/z and intensities of peaks from \code{\link{create_insilico_mixture_template}} and modify them based on given parameters.
+This function takes simulated m/z and intensities of peaks from \code{\link{create_insilico_mixture_template}} and modifies them based on given parameters.
 }
 \examples{
-#Assuming that there are only bacteria species Ab and Ec in sim.template. 
+#Assuming that there are only bacteria species Ab and Ec in sim.template.
 mixture.ratio <- list()
 mixture.ratio['Ab']=1
 mixture.ratio['Ec']=0.5
 \dontrun{
-sim.template <- create_insilico_mixture_template(mono.info) 
+sim.template <- create_insilico_mixture_template(mono.info)
 insilico.spectrum <- simulate_poly_spectra(sim.template, mixture.ratio)
 }
 }

@@ -42,7 +42,7 @@ simulate_many_poly_spectra(
 Simulated mass spectra.
 }
 \description{
-The function create simulated mass spectra in pdf file and return simulated mass spectra (m/z and intensity values of peaks).
+The function creates simulated mass spectra in pdf file and returns simulated mass spectra (m/z and intensity values of peaks).
 }
 \examples{
 \dontrun{

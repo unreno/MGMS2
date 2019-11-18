@@ -14,18 +14,21 @@ summary_mono(
 )
 }
 \arguments{
-\item{spectra.interest}{Description}
+\item{spectra.interest}{A list which contains peaks information for a strain of interest.}
 
-\item{minFrequency}{Description}
+\item{minFrequency}{Percentage value. A minimum occurrence proportion required for building a reference peaks. All peaks with their occurence proportion less than minFrequency will be moved. (Default: 0.50). See \code{\link[MALDIquant]{filterPeaks}} and \code{\link[MALDIquant]{referencePeaks}} for details.}
 
-\item{align.tolerance}{Description}
+\item{align.tolerance}{Mass tolerance. Must be multiplied by 10^-6 for ppm. (Default: 0.0005).}
 
-\item{snr}{Description}
+\item{snr}{Signal-to-noise ratio. (Default: 3).}
 
-\item{halfWindowSize}{Description}
+\item{halfWindowSize}{The highest peaks in the given window (+/-halfWindowSize) will be recognized as peaks. (Default: 20). See \code{\link[MALDIquant]{detectPeaks}} for details.}
 
-\item{top.N}{Description}
+\item{top.N}{The top N peaks will be chosen for the analysis. An integer value. (Default: 50).}
+}
+\value{
+Summary information for spectra of interest.
 }
 \description{
-Internal file.
+Internal file. This function calculates summary statistics for peaks afterling aligning spectra of interest.
 }

@@ -7,14 +7,17 @@
 simulate_ind_spec_single(interest, mz.tol, species, strain)
 }
 \arguments{
-\item{interest}{Description}
+\item{interest}{Summary statistics of spectra.}
 
-\item{mz.tol}{Description}
+\item{mz.tol}{m/z tolerance that used for m/z value generation.}
 
-\item{species}{Description}
+\item{species}{Species.}
 
-\item{strain}{Description}
+\item{strain}{Strain name.}
+}
+\value{
+A data frame that contains m/z, (normalized) intensity values, missing rates of peaks, species name, and strain name.
 }
 \description{
-Internal file.
+Internal file. The function simulates m/z and intensity values using given summary statistics.
 }

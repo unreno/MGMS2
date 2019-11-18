@@ -7,10 +7,14 @@
 filtermass(spectra, mass.range)
 }
 \arguments{
-\item{spectra}{Description}
+\item{spectra}{Spectra. A MALDIquant object. An output of \code{\link[MALDIquantForeign]{importMzXml}}.}
 
-\item{mass.range}{Description}
+\item{mass.range}{Mass (m/z) range. For exmaple, c(1000,2200).}
+}
+\value{
+The filtered spectra.
 }
 \description{
-Internal function.
+Internal function. This function removes peaks with their mass values (m/z values) outside a given mass range.
+This function is used in \code{\link{process_monospectra}}.
 }

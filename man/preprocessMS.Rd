@@ -7,12 +7,15 @@
 preprocessMS(spectra, halfWindowSize = 20, SNIP.iteration = 60)
 }
 \arguments{
-\item{spectra}{Description}
+\item{spectra}{Spectra. A MALDIquant object. An output of either \code{\link[MALDIquantForeign]{importMzXml}} or \code{\link{filtermass}}.}
 
-\item{halfWindowSize}{Description}
+\item{halfWindowSize}{halfWindowSize The highest peaks in the given window (+/-halfWindowSize) will be recognized as peaks. (Default: 20). See \code{\link[MALDIquant]{detectPeaks}} for details.}
 
-\item{SNIP.iteration}{Description}
+\item{SNIP.iteration}{SNIP.iteration An iteration used to remove the baseline of an spectrum. (Default: 60). See \code{\link[MALDIquant]{removeBaseline}} for details.}
+}
+\value{
+The processed spectra.
 }
 \description{
-Internal function.
+Internal function. This function preprocesses spectra by transforming/smoothing intensity, removing baseline, and calibrating intensities.
 }

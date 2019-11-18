@@ -10,7 +10,7 @@ gather_summary(x)
 \item{x}{A list of multiple monomicrobial mass spectra information from \code{\link{summarize_monospectra}}.}
 }
 \value{
-A list of combined summary and the corresponding species.
+A list of combined summaries and the corresponding species.
 }
 \description{
 This function combines outputs from \code{\link{summarize_monospectra}}.

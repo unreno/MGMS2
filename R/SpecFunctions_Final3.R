@@ -14,7 +14,7 @@ utils::globalVariables(c("species"))
 #' install_check
 #'
 #' install_check function.
-#' @return Print MGMS2 install_check in R concole. 
+#' @return Print MGMS2 install_check in R concole.
 #' @examples install_check()
 #' @export
 
@@ -24,9 +24,11 @@ install_check <- function(){
 
 #' filtermass
 #'
-#' Internal function. 
-#' @param spectra DESCRIPTION NEEDED
-#' @param mass.range DESCRIPTION NEEDED
+#' Internal function. This function removes peaks with their mass values (m/z values) outside a given mass range.
+#' This function is used in \code{\link{process_monospectra}}.
+#' @param spectra Spectra. A MALDIquant object. An output of \code{\link[MALDIquantForeign]{importMzXml}}.
+#' @param mass.range Mass (m/z) range. For exmaple, c(1000,2200).
+#' @return The filtered spectra.
 
 filtermass <- function(spectra, mass.range){
 	for (i in 1:length(spectra)){
@@ -40,9 +42,9 @@ filtermass <- function(spectra, mass.range){
 
 #' gather_summary
 #'
-#' This function combines outputs from \code{\link{summarize_monospectra}}.  
-#' @param x A list of multiple monomicrobial mass spectra information from \code{\link{summarize_monospectra}}.    
-#' @return A list of combined summary and the corresponding species. 
+#' This function combines outputs from \code{\link{summarize_monospectra}}.
+#' @param x A list of multiple monomicrobial mass spectra information from \code{\link{summarize_monospectra}}.
+#' @return A list of combined summaries and the corresponding species.
 #' @examples
 #' \dontrun{
 #' spectra.mono.summary.Ab <- summarize_monospectra(
@@ -54,7 +56,7 @@ filtermass <- function(spectra, mass.range){
 #' mono.info=gather_summary(c(spectra.mono.summary.Ab, spectra.mono.summary.Sa))
 #' }
 #' @export
- 
+
 gather_summary <- function(x){
 	species <- NULL
 	for (i in 1:length(x)){
@@ -65,15 +67,15 @@ gather_summary <- function(x){
 
 #' gather_summary_file
 #'
-#' This function combines output files from \code{\link{summarize_monospectra}}. 
+#' This function combines output files from \code{\link{summarize_monospectra}}.
 #' @param directory A directory that contains summary files from \code{\link{summarize_monospectra}}.
 #' @return A list of combined summary and the corresponding species.
 #' @examples
 #' \dontrun{
 #' gather_summary_file(directory='C:/')
 #' }
-#' @export 
- 
+#' @export
+
 gather_summary_file <- function(directory){
 	files <- list.files(path=directory, pattern=".csv", full.names = TRUE)
 	pool <- list()
@@ -88,10 +90,11 @@ gather_summary_file <- function(directory){
 
 #' preprocessMS
 #'
-#' Internal function. 
-#' @param spectra DESCRIPTION NEEDED
-#' @param halfWindowSize DESCRIPTION NEEDED
-#' @param SNIP.iteration DESCRIPTION NEEDED
+#' Internal function. This function preprocesses spectra by transforming/smoothing intensity, removing baseline, and calibrating intensities.
+#' @param spectra Spectra. A MALDIquant object. An output of either \code{\link[MALDIquantForeign]{importMzXml}} or \code{\link{filtermass}}.
+#' @param halfWindowSize halfWindowSize The highest peaks in the given window (+/-halfWindowSize) will be recognized as peaks. (Default: 20). See \code{\link[MALDIquant]{detectPeaks}} for details.
+#' @param SNIP.iteration SNIP.iteration An iteration used to remove the baseline of an spectrum. (Default: 60). See \code{\link[MALDIquant]{removeBaseline}} for details.
+#' @return The processed spectra.
 
 preprocessMS <- function(spectra, halfWindowSize=20, SNIP.iteration=60){
 	spectra <- transformIntensity(spectra, method="sqrt")
@@ -103,20 +106,20 @@ preprocessMS <- function(spectra, halfWindowSize=20, SNIP.iteration=60){
 
 #' summarize_monospectra
 #'
-#' This function summarize monomicrobial spectra and write the summary in the specified directory. 
-#' @param processed.obj A list from \code{\link{process_monospectra}} which contains top.N peaks information for each strain.  
+#' This function summarizes monomicrobial spectra and writes summary in the specified directory.
+#' @param processed.obj A list from \code{\link{process_monospectra}} which contains peaks information for each strain.
 #' @param species Species name.
 #' @param directory Directory.
 #' @param minFrequency Percentage value. A minimum occurrence proportion required for building a reference peaks. All peaks with their occurence proportion less than minFrequency will be moved. (Default: 0.50). See \code{\link[MALDIquant]{filterPeaks}} and \code{\link[MALDIquant]{referencePeaks}} for details.
-#' @param align.tolerance Mass tolerance. Must be multiplied by 10^-6 for ppm. (Default: 0.0005). 	
-#' @param snr Signal-to-noise ratio. (Default: 3). 
-#' @param halfWindowSize The highest peaks in the given window (+/-halfWindowSize) will be recognized as peaks. (Default: 20). See \code{\link[MALDIquant]{detectPeaks}} for details.  
-#' @param top.N The top N peaks will be chosen for the analysis. An integer value. (Default: 50). 
-#' @return A data frame that contains the peaks informations: m/z, mean log intensity, standard deviation of log intensity, missing rate of peaks. In addition, it also contains species and strain information. 
+#' @param align.tolerance Mass tolerance. Must be multiplied by 10^-6 for ppm. (Default: 0.0005).
+#' @param snr Signal-to-noise ratio. (Default: 3).
+#' @param halfWindowSize The highest peaks in the given window (+/-halfWindowSize) will be recognized as peaks. (Default: 20). See \code{\link[MALDIquant]{detectPeaks}} for details.
+#' @param top.N The top N peaks will be chosen for the analysis. An integer value. (Default: 50).
+#' @return A data frame that contains the peaks informations: m/z, mean log intensity, standard deviation of log intensity, missing rate of peaks. In addition, it also contains species and strain information.
 #' @examples
 #' \dontrun{
 #' spectra.processed.Ab <- process_monospectra(
-#'    file='Data/Acinetobacter baumannii - sen/list.txt', 
+#'    file='Data/Acinetobacter baumannii - sen/list.txt',
 #'    mass.range=c(1000,2200))
 #' }
 #' \dontrun{
@@ -145,20 +148,20 @@ summarize_monospectra <- function(processed.obj, species, directory, minFrequenc
 
 #' process_monospectra
 #'
-#' This function processes multiple mzXML files which are listed in the file that an user specifies. 
-#' @param file A file name. This file is a tab-delimited file which contains the following columns: file names, strain.no, and strain. See below for details. 
-#' @param mass.range The m/z range that an user want to consider for the analysis. (Default: c(1000,2200)).
-#' @param halfWindowSize A half window size used for the smoothing the intensity values. (Default: 20). See \code{\link[MALDIquant]{smoothIntensity}} for details.  
-#' @param SNIP.iteration An interaction used to remove the baseline of an spectrum. (Default: 60). See \code{\link[MALDIquant]{removeBaseline}} for details. 
-#' @return A list of processed monobacterial spectra, and their strain numbers, a vector of unique strains, and strain names. 
+#' This function processes multiple mzXML files which are listed in the file that an user specifies.
+#' @param file A file name. This file is a tab-delimited file which contains the following columns: file names, strain.no, and strain. See below for details.
+#' @param mass.range The m/z range that users want to consider for the analysis. (Default: c(1000,2200)).
+#' @param halfWindowSize A half window size used for the smoothing the intensity values. (Default: 20). See \code{\link[MALDIquant]{smoothIntensity}} for details.
+#' @param SNIP.iteration An iteration used to remove the baseline of an spectrum. (Default: 60). See \code{\link[MALDIquant]{removeBaseline}} for details.
+#' @return A list of processed monobacterial spectra, and their strain numbers, a vector of unique strains, and strain names.
 #' @examples
 #' \dontrun{
 #' spectra.processed.Ab <- process_monospectra(
 #'    file='Data/Acinetobacter baumannii - sen/list.txt',
 #'    mass.range=c(1000,2200))
 #' }
-#' @details 
-#' This tab-delimited file contains a sample desription. 
+#' @details
+#' This tab-delimited file contains a sample desription.
 #' file.name	strain.no	strain
 #' Ab1.mzXML	1	EAS025
 #' Ab2.mzXML	1	EAS025
@@ -179,7 +182,6 @@ process_monospectra <- function(file, mass.range=c(1000,2200), halfWindowSize=20
 	#	I trimmed the path from the content and will prepend the path of this file.
 	dir=dirname(file)
 	spectra <- importMzXml(paste(dir,file.interest$file.name,sep='/'))
-	#spectra <- importMzXml(paste(file.interest$file.name))
 
 	spectra <- filtermass(spectra, mass.range)
 	spectra <- preprocessMS(spectra, halfWindowSize=20, SNIP.iteration=60)
@@ -192,13 +194,14 @@ process_monospectra <- function(file, mass.range=c(1000,2200), halfWindowSize=20
 
 #' summary_mono
 #'
-#' Internal file. 
-#' @param spectra.interest DESCRIPTION NEEDED
-#' @param minFrequency DESCRIPTION NEEDED
-#' @param align.tolerance DESCRIPTION NEEDED
-#' @param snr DESCRIPTION NEEDED
-#' @param halfWindowSize DESCRIPTION NEEDED
-#' @param top.N DESCRIPTION NEEDED
+#' Internal file. This function calculates summary statistics for peaks afterling aligning spectra of interest.
+#' @param spectra.interest A list which contains peaks information for a strain of interest.
+#' @param minFrequency Percentage value. A minimum occurrence proportion required for building a reference peaks. All peaks with their occurence proportion less than minFrequency will be moved. (Default: 0.50). See \code{\link[MALDIquant]{filterPeaks}} and \code{\link[MALDIquant]{referencePeaks}} for details.
+#' @param align.tolerance Mass tolerance. Must be multiplied by 10^-6 for ppm. (Default: 0.0005).
+#' @param snr Signal-to-noise ratio. (Default: 3).
+#' @param halfWindowSize The highest peaks in the given window (+/-halfWindowSize) will be recognized as peaks. (Default: 20). See \code{\link[MALDIquant]{detectPeaks}} for details.
+#' @param top.N The top N peaks will be chosen for the analysis. An integer value. (Default: 50).
+#' @return Summary information for spectra of interest.
 
 summary_mono <- function(spectra.interest, minFrequency=0.50, align.tolerance=0.0005, snr=3, halfWindowSize=20, top.N=50){
 	ref.peak <- detectPeaks(spectra.interest, method="MAD", halfWindowSize = halfWindowSize, SNR=snr)
@@ -233,41 +236,22 @@ summary_mono <- function(spectra.interest, minFrequency=0.50, align.tolerance=0.
 	return(summary.info)
 }
 
-#' read_summary_file
-#'
-#'Internal file. 
-#' @param files DESCRIPTION NEEDED
-
-read_summary_file <- function(files){
-	pool <- list()
-	for (i in 1:length(files)){
-		pool[[i]] <- read.csv(file=files[i])
-		tmp <-	strsplit(files[i], "/")[[1]]
-		tmp <- strsplit(tmp[length(tmp)], "[.]")[[1]][1]
-		tmp <- strsplit(tmp, "_")[[1]]
-		index=which(species==tmp[1])
-		if (length(index)>0){
-			pool[[i]]$species <- tmp[1]
-			pool[[i]]$strain <- tmp[2]
-		}
-	}
-	return(pool)
-}
 
 #' simulate_ind_spec_single
 #'
-#' Internal file. 
-#' @param interest DESCRIPTION NEEDED
-#' @param mz.tol DESCRIPTION NEEDED
-#' @param species DESCRIPTION NEEDED
-#' @param strain DESCRIPTION NEEDED
+#' Internal file. The function simulates m/z and intensity values using given summary statistics.
+#' @param interest Summary statistics of spectra.
+#' @param mz.tol m/z tolerance that used for m/z value generation.
+#' @param species Species.
+#' @param strain Strain name.
+#' @return A data frame that contains m/z, (normalized) intensity values, missing rates of peaks, species name, and strain name.
 
 simulate_ind_spec_single <- function(interest, mz.tol, species, strain){
 	spec <- NULL
 	for (i in 1:nrow(interest)){
 		current <- interest[i,]
 		log.int <- rnorm(1, current$mean.log.int, current$sd.log.int)
-		mz <- rnorm(1, current$mz, mz.tol/qnorm(0.9995)) #Change
+		mz <- rnorm(1, current$mz, mz.tol/qnorm(0.9995))
 		tmp <- data.frame(mz=mz, log.int=log.int, species=species, strain=strain, missing.rate=current$missing.rate)
 		if (length(spec)<1){
 			spec <- tmp
@@ -279,50 +263,25 @@ simulate_ind_spec_single <- function(interest, mz.tol, species, strain){
 	return(spec)
 }
 
-#' build_bin_sim_spec
-#'
-#' Internal file. 
-#' @param bin.mass Desciption
-#' @param target Desciption
-#' @param bin.size Desciption
-
-
-build_bin_sim_spec <- function(bin.mass, target, bin.size=1){
-	bin.sim = chosen.mz = mid.mass = array(c(0), dim=length(bin.mass))
-	for (j in 1:length(bin.mass)){
-		current.min.mass = bin.mass[j]
-		current.max.mass = current.min.mass+bin.size
-		mid.mass[j] = (current.min.mass+current.max.mass)/2
-		index = which((target$mz >= current.min.mass) & (target$mz < current.max.mass))
-		if (length(index)>0){
-			index2 = which.max(target$normalized.int[index])
-			bin.sim[j] = max(target$normalized.int[index])
-			chosen.mz[j] = target$mz[index][index2]
-		}
-	}
-	binned.target = as.data.frame(cbind(mid.mass, chosen.mz, bin.sim))
-	return(binned.target)
-}
-
 #' simulate_poly_spectra
 #'
-#' This function takes simulated m/z and intensities of peaks from \code{\link{create_insilico_mixture_template}} and modify them based on given parameters. 
-#' @param sim.template A data frame which contains m/z, log intensitiy, normalized intensity values and missing rates of peaks. There are also species and strain information. An object of \code{\link{create_insilico_mixture_template}}. 
-#' @param mixture.ratio A list of bacterial mixture ratios for given bacterial species in sim.template. 
-#' @param spectrum.name A character. An user can define the spectrum name. (Default: 'Spectrum'). 
+#' This function takes simulated m/z and intensities of peaks from \code{\link{create_insilico_mixture_template}} and modifies them based on given parameters.
+#' @param sim.template A data frame which contains m/z, log intensitiy, normalized intensity values and missing rates of peaks. There are also species and strain information. An object of \code{\link{create_insilico_mixture_template}}.
+#' @param mixture.ratio A list of bacterial mixture ratios for given bacterial species in sim.template.
+#' @param spectrum.name A character. An user can define the spectrum name. (Default: 'Spectrum').
 #' @param mixture.missing.prob.peak A real value. The missing probability caused by mixing multiple bacteria species. (Default: 0.05)
 #' @param noise.peak.ratio A ratio between the numbers of noise and signal peaks. (Default: 0.05)
 #' @param snr.basepeak A (base peak) signal to noise ratio. (Default: 500)
 #' @param noise.cv A coefficient of variation of noise peaks. (Default: 0.25)
 #' @param mz.range A range of m/z values. (Default: c(1000,2200))
-#' @return A data frame. A modified version of \code{sim.template}.  
+#' @return A data frame. A modified version of \code{sim.template}.
 #' @examples
-#' #Assuming that there are only bacteria species Ab and Ec in sim.template. 
+#' #Assuming that there are only bacteria species Ab and Ec in sim.template.
 #' mixture.ratio <- list()
 #' mixture.ratio['Ab']=1
 #' mixture.ratio['Ec']=0.5
 #' \dontrun{
-#' sim.template <- create_insilico_mixture_template(mono.info) 
+#' sim.template <- create_insilico_mixture_template(mono.info)
 #' insilico.spectrum <- simulate_poly_spectra(sim.template, mixture.ratio)
 #' }
 #' @export
@@ -348,7 +307,7 @@ simulate_poly_spectra <- function(sim.template, mixture.ratio, spectrum.name='Sp
 	}else{
 		stop("too many missing.\n")
 	}
-	
+
 	#add noise peaks
 	if (noise.peak.ratio>0){
 		noise.mean.int <- 1/snr.basepeak
@@ -358,7 +317,7 @@ simulate_poly_spectra <- function(sim.template, mixture.ratio, spectrum.name='Sp
 		noise.temp <- data.frame(mz=noise.mz, log.int=NA, species=c("Noise"), strain=c("Noise"), normalized.int=noise.int, missing.rate=0)
 		sim.template = rbind(sim.template, noise.temp)
 	}
-	
+
 	#normalize by the highest peak
 	sim.template$normalized.int = sim.template$normalized.int / max(sim.template$normalized.int)
 
@@ -385,7 +344,7 @@ simulate_poly_spectra <- function(sim.template, mixture.ratio, spectrum.name='Sp
 				cex=1.5,
 				col=c((1+1):(length(species.interest)+1),1)
 			)
-	
+
 		}else{
 			points(sim.template$mz[sim.template$species==p],
 				sim.template$normalized.int[sim.template$species==p], col=which(species.interest==p)+1, type="h")
@@ -401,8 +360,8 @@ simulate_poly_spectra <- function(sim.template, mixture.ratio, spectrum.name='Sp
 
 #' simulate_many_poly_spectra
 #'
-#' The function create simulated mass spectra in pdf file and return simulated mass spectra (m/z and intensity values of peaks). 
-#' @param mono.info A list output of \code{\link{gather_summary}} or {\code{\link{gather_summary_file}}}. 
+#' The function creates simulated mass spectra in pdf file and returns simulated mass spectra (m/z and intensity values of peaks).
+#' @param mono.info A list output of \code{\link{gather_summary}} or {\code{\link{gather_summary_file}}}.
 #' @param nsim The number of simulated spectra. (Default: 10000)
 #' @param file An output file name. (Default: MGMS2_insilico_spectra.pdf)
 #' @param mixture.ratio A list of bacterial mixture ratios for given bacterial species in sim.template.
@@ -412,7 +371,7 @@ simulate_poly_spectra <- function(sim.template, mixture.ratio, spectrum.name='Sp
 #' @param noise.cv A coefficient of variation of noise peaks. (Default: 0.25)
 #' @param mz.range A range of m/z values. (Default: c(1000,2200))
 #' @param mz.tol m/z tolerance. (Default: 0.5)
-#' @return Simulated mass spectra. 
+#' @return Simulated mass spectra.
 #' @examples
 #' \dontrun{
 #' simulate_many_poly_spectra(mono.info)
@@ -439,10 +398,10 @@ simulate_many_poly_spectra <- function(mono.info, nsim=10000, file='MGMS2_insili
 
 #' create_insilico_mixture_template
 #'
-#' This function generates an intial template for simulated mass spectra. 
-#' @param mono.info An output of \code{\link{gather_summary}}. 
+#' This function generates an intial template for simulated mass spectra.
+#' @param mono.info An output of \code{\link{gather_summary}}.
 #' @param mz.tol A m/z tolerance in Da. (Default: 0.5)
-#' @return A data frame which contains simulated m/z, log intensity, and normalized intensity values of peaks. 
+#' @return A data frame which contains simulated m/z, log intensity, and normalized intensity values of peaks.
 #' @examples
 #' \dontrun{
 #' create_insilico_mixture_template(mono.info)

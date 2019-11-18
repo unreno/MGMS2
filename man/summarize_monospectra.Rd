@@ -16,7 +16,7 @@ summarize_monospectra(
 )
 }
 \arguments{
-\item{processed.obj}{A list from \code{\link{process_monospectra}} which contains top.N peaks information for each strain.}
+\item{processed.obj}{A list from \code{\link{process_monospectra}} which contains peaks information for each strain.}
 
 \item{species}{Species name.}
 
@@ -36,12 +36,12 @@ summarize_monospectra(
 A data frame that contains the peaks informations: m/z, mean log intensity, standard deviation of log intensity, missing rate of peaks. In addition, it also contains species and strain information.
 }
 \description{
-This function summarize monomicrobial spectra and write the summary in the specified directory.
+This function summarizes monomicrobial spectra and writes summary in the specified directory.
 }
 \examples{
 \dontrun{
 spectra.processed.Ab <- process_monospectra(
-   file='Data/Acinetobacter baumannii - sen/list.txt', 
+   file='Data/Acinetobacter baumannii - sen/list.txt',
    mass.range=c(1000,2200))
 }
 \dontrun{
