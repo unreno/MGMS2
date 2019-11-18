@@ -1,5 +1,5 @@
 Package: MGMS2
-Title: Library for the Interactive Poly-Bacterial in-Silico Glycolipid Spectrum Simulator
+Title: Membrane Glycolipid Mass Spectrum Simulator for Polymicrobial Samples
 Version: 0.0.0
 Authors@R: 
     c(person(given = "So Young",
@@ -12,7 +12,7 @@ Authors@R:
            email = "gwendt@unr.edu"))
 Author: So Young Ryu [aut], George Wendt [cre]
 Maintainer: George Wendt <gwendt@unr.edu>
-Description: Library for the Interactive Poly-bacterial In-silico Glycolipid Spectrum Simulator.
+Description: Generates in-silico polymicrobial membrane glycolipid mass spectra.
 License: GPL-3 + file LICENSE
 Encoding: UTF-8
 LazyData: true
