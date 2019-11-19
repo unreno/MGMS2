@@ -1,6 +1,6 @@
 Package: MGMS2
 Title: Membrane Glycolipid Mass Spectrum Simulator for Polymicrobial Samples
-Version: 0.0.0
+Version: 1.0.0
 Authors@R: c(
 	person(given = "So Young",
 		family = "Ryu",
