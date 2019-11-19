@@ -4,4 +4,4 @@
 .git/objects/
 .git/objects/*
 .Rbuildignore.swp
-
+LICENSE
