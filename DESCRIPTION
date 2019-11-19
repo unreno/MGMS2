@@ -15,6 +15,9 @@ Authors@R: c(
 Author: So Young Ryu [aut] (<https://orcid.org/0000-0003-2347-7015>), George Wendt [cre] (<https://orcid.org/0000-0003-3608-9601>)
 Maintainer: George Wendt <gwendt@unr.edu>
 Description: Generates in-silico polymicrobial membrane glycolipid mass spectra.
+	Ryu, S.Y., Wendt, G.A., Ernst, R.K. and Goodlett D.R., 2019+. MGMS2: Membrane Glycolipid Mass Spectrum Simulator for polymicrobial samples. Under review.
+	Ryu, S.Y., Wendt, G.A., Chandler, C.E., Ernst, R.K. and Goodlett, D.R., 2019. Model-Based Spectral Library Approach for Bacterial Identification via Membrane Glycolipids. Analytical chemistry, 91(17), pp.11482-11487. <doi: 10.1021/acs.analchem.9b03340>.
+	Gibb, S. and Strimmer, K., 2012. MALDIquant: a versatile R package for the analysis of mass spectrometry data. Bioinformatics, 28(17), pp.2270-2271. <doi: 10.1093/bioinformatics/bts447>.
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
