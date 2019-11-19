@@ -130,10 +130,11 @@ https://xmpalantir.wu.ac.at/cransubmit/
 
 Check for CRAN issues ...
 ```BASH
+R -e 'library(devtools);document();setwd("..");install("MGMS2",upgrade=FALSE)'
 cd ..
 R CMD build MGMS2
-R CMD check MGMS2_0.0.0.tar.gz
-R CMD check --as-cran MGMS2_0.0.0.tar.gz
+R CMD check MGMS2_*.tar.gz
+R CMD check --as-cran MGMS2_*.tar.gz
 ```
 
 
