@@ -8,6 +8,21 @@ Library for the Interactive Poly-Bacterial in-Silico Glycolipid Spectrum Simulat
 
 ###	Installation
 
+
+####	Production Version
+
+```R
+install.packages(c("MALDIquant","MALDIquantForeign"),type="source")
+install.packages("MGMS2")
+library("MGMS2")
+```
+or
+```BASH
+R -e 'install.packages("MGMS2")'
+```
+
+####	Development Version
+
 ```R
 install.packages(c("MALDIquant","MALDIquantForeign"),type="source")
 devtools::install_github("unreno/MGMS2")
@@ -19,28 +34,14 @@ R -e 'devtools::install_github("unreno/MGMS2")'
 ```
 
 
-Eventually ...
-```R
-install.packages(c("MALDIquant","MALDIquantForeign"),type="source")
-install.packages("MGMS2")
-library("MGMS2")
-```
-or
-```BASH
-R -e 'install.packages("MGMS2")'
-```
-
-
-
 
 
 ###	Usage
 
 ```R
 library('MGMS2')
-
-MGMS2::install_check()
 ```
+
 
 ###	Removal
 
@@ -57,8 +58,7 @@ remove.packages("MGMS2")
 
 ##	Developer
 
-###	Creation
-
+###	Initial Creation
 
 ```R
 install.packages(c('devtools','roxygen2'))
@@ -105,7 +105,6 @@ install('MGMS2',upgrade=FALSE)
 library('MGMS2')
 lsf.str("package:MGMS2")
 
-MGMS2::install_check()
 remove.packages("MGMS2")
 ```
 
@@ -113,6 +112,10 @@ Or from the bash command line ...
 ```BASH
 R -e 'library(devtools);document();setwd("..");install("MGMS2",upgrade=FALSE)'
 ```
+
+
+
+ADD TESTING
 
 
 
