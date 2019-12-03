@@ -379,7 +379,7 @@ simulate_poly_spectra <- function(sim.template, mixture.ratio, spectrum.name='Sp
 #' @param mz.tol m/z tolerance. (Default: 0.5)
 #' @return A list of data frames. A list of simulated mass spectra (data frames) that contains m/z values of peaks, normalized intensities of peaks, species names, and strain names. This function also creates pdf files which contains simulated spectra.
 #' @examples
-#' simulate_many_poly_spectra(mono.info)
+#' simulate_many_poly_spectra(mono.info, mixture.ratio=mixture.ratio, nsim=10)
 #' @export
 
 simulate_many_poly_spectra <- function(mono.info, nsim=10000, file=NULL, mixture.ratio,
