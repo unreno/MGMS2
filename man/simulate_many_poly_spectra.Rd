@@ -45,5 +45,5 @@ A list of data frames. A list of simulated mass spectra (data frames) that conta
 The function creates simulated mass spectra in pdf file and returns simulated mass spectra (m/z and intensity values of peaks).
 }
 \examples{
-simulate_many_poly_spectra(mono.info)
+simulate_many_poly_spectra(mono.info, mixture.ratio=mixture.ratio, nsim=10)
 }
