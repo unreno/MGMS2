@@ -37,5 +37,5 @@ spectra.mono.summary.C <- summarize_monospectra(
    processed.obj=spectra.processed.C,
    species='C', directory=tempdir())
 mono.info=gather_summary(c(spectra.mono.summary.A, spectra.mono.summary.B, spectra.mono.summary.C))
-create_insilico_mixture_template(mono.info)
+template <- create_insilico_mixture_template(mono.info)
 }

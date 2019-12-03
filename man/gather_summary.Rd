@@ -16,6 +16,15 @@ A list of combined summaries (data frames) of mass spectra from \code{\link{summ
 This function combines outputs from \code{\link{summarize_monospectra}}.
 }
 \examples{
+spectra.processed.A <- process_monospectra(
+   file=system.file("extdata", "listA.txt", package="MGMS2"),
+   mass.range=c(1000,2200))
+spectra.processed.B <- process_monospectra(
+   file=system.file("extdata", "listB.txt", package="MGMS2"),
+   mass.range=c(1000,2200))
+spectra.processed.C <- process_monospectra(
+   file=system.file("extdata", "listC.txt", package="MGMS2"),
+   mass.range=c(1000,2200))
 spectra.mono.summary.A <- summarize_monospectra(
    processed.obj=spectra.processed.A,
    species='A', directory=tempdir())

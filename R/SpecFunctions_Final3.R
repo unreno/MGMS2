@@ -34,6 +34,15 @@ filtermass <- function(spectra, mass.range){
 #' @param x A list of multiple monomicrobial mass spectra information from \code{\link{summarize_monospectra}}.
 #' @return A list of combined summaries (data frames) of mass spectra from \code{\link{summarize_monospectra}} and the corresponding species (a vector).
 #' @examples
+#' spectra.processed.A <- process_monospectra(
+#'    file=system.file("extdata", "listA.txt", package="MGMS2"),
+#'    mass.range=c(1000,2200))
+#' spectra.processed.B <- process_monospectra(
+#'    file=system.file("extdata", "listB.txt", package="MGMS2"),
+#'    mass.range=c(1000,2200))
+#' spectra.processed.C <- process_monospectra(
+#'    file=system.file("extdata", "listC.txt", package="MGMS2"),
+#'    mass.range=c(1000,2200))
 #' spectra.mono.summary.A <- summarize_monospectra(
 #'    processed.obj=spectra.processed.A,
 #'    species='A', directory=tempdir())
@@ -60,6 +69,15 @@ gather_summary <- function(x){
 #' @param directory A directory that contains summary files from \code{\link{summarize_monospectra}}.
 #' @return A list of combined summaries of mass spectra (data frames) from \code{\link{summarize_monospectra}} and the corresponding species (a vector).
 #' @examples
+#' spectra.processed.A <- process_monospectra(
+#'    file=system.file("extdata", "listA.txt", package="MGMS2"),
+#'    mass.range=c(1000,2200))
+#' spectra.processed.B <- process_monospectra(
+#'    file=system.file("extdata", "listB.txt", package="MGMS2"),
+#'    mass.range=c(1000,2200))
+#' spectra.processed.C <- process_monospectra(
+#'    file=system.file("extdata", "listC.txt", package="MGMS2"),
+#'    mass.range=c(1000,2200))
 #' spectra.mono.summary.A <- summarize_monospectra(
 #'    processed.obj=spectra.processed.A,
 #'    species='A', directory=tempdir())
@@ -69,7 +87,7 @@ gather_summary <- function(x){
 #' spectra.mono.summary.C <- summarize_monospectra(
 #'    processed.obj=spectra.processed.C,
 #'    species='C', directory=tempdir())
-#' gather_summary_file(directory=tempdir())
+#' summary <- gather_summary_file(directory=tempdir())
 #' @export
 
 gather_summary_file <- function(directory){
@@ -379,7 +397,30 @@ simulate_poly_spectra <- function(sim.template, mixture.ratio, spectrum.name='Sp
 #' @param mz.tol m/z tolerance. (Default: 0.5)
 #' @return A list of data frames. A list of simulated mass spectra (data frames) that contains m/z values of peaks, normalized intensities of peaks, species names, and strain names. This function also creates pdf files which contains simulated spectra.
 #' @examples
-#' simulate_many_poly_spectra(mono.info, mixture.ratio=mixture.ratio, nsim=10)
+#' spectra.processed.A <- process_monospectra(
+#'    file=system.file("extdata", "listA.txt", package="MGMS2"),
+#'    mass.range=c(1000,2200))
+#' spectra.processed.B <- process_monospectra(
+#'    file=system.file("extdata", "listB.txt", package="MGMS2"),
+#'    mass.range=c(1000,2200))
+#' spectra.processed.C <- process_monospectra(
+#'    file=system.file("extdata", "listC.txt", package="MGMS2"),
+#'    mass.range=c(1000,2200))
+#' spectra.mono.summary.A <- summarize_monospectra(
+#'    processed.obj=spectra.processed.A,
+#'    species='A', directory=tempdir())
+#' spectra.mono.summary.B <- summarize_monospectra(
+#'    processed.obj=spectra.processed.B,
+#'    species='B', directory=tempdir())
+#' spectra.mono.summary.C <- summarize_monospectra(
+#'    processed.obj=spectra.processed.C,
+#'    species='C', directory=tempdir())
+#' mono.info=gather_summary(c(spectra.mono.summary.A, spectra.mono.summary.B, spectra.mono.summary.C))
+#' mixture.ratio <- list()
+#' mixture.ratio['A']=1
+#' mixture.ratio['B']=0.5
+#' mixture.ratio['C']=0
+#' insilico.spectra <- simulate_many_poly_spectra(mono.info, mixture.ratio=mixture.ratio, nsim=10)
 #' @export
 
 simulate_many_poly_spectra <- function(mono.info, nsim=10000, file=NULL, mixture.ratio,
@@ -426,7 +467,7 @@ simulate_many_poly_spectra <- function(mono.info, nsim=10000, file=NULL, mixture
 #'    processed.obj=spectra.processed.C,
 #'    species='C', directory=tempdir())
 #' mono.info=gather_summary(c(spectra.mono.summary.A, spectra.mono.summary.B, spectra.mono.summary.C))
-#' create_insilico_mixture_template(mono.info)
+#' template <- create_insilico_mixture_template(mono.info)
 #' @export
 
 create_insilico_mixture_template <- function(mono.info, mz.tol=0.5){
