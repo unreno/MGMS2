@@ -1,0 +1,8 @@
+file.name	strain.no	strain
+SpeciesB_StrainX_1.mzXML	1	X
+SpeciesB_StrainX_2.mzXML	1	X
+SpeciesB_StrainX_3.mzXML	1	X
+SpeciesB_StrainX_4.mzXML	1	X
+SpeciesB_StrainY_1.mzXML	2	Y
+SpeciesB_StrainY_2.mzXML	2	Y
+SpeciesB_StrainY_3.mzXML	2	Y
