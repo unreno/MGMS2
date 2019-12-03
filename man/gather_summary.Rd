@@ -10,19 +10,20 @@ gather_summary(x)
 \item{x}{A list of multiple monomicrobial mass spectra information from \code{\link{summarize_monospectra}}.}
 }
 \value{
-A list of combined summaries and the corresponding species.
+A list of combined summaries (data frames) of mass spectra from \code{\link{summarize_monospectra}} and the corresponding species (a vector).
 }
 \description{
 This function combines outputs from \code{\link{summarize_monospectra}}.
 }
 \examples{
-\dontrun{
-spectra.mono.summary.Ab <- summarize_monospectra(
-   processed.obj=spectra.processed.Ab,
-   species='Ab', directory='C:/')
-spectra.mono.summary.Sa <- summarize_monospectra(
-   processed.obj=spectra.processed.Sa,
-   species='Sa', directory='C:/')
-mono.info=gather_summary(c(spectra.mono.summary.Ab, spectra.mono.summary.Sa))
-}
+spectra.mono.summary.A <- summarize_monospectra(
+   processed.obj=spectra.processed.A,
+   species='A', directory=tempdir())
+spectra.mono.summary.B <- summarize_monospectra(
+   processed.obj=spectra.processed.B,
+   species='B', directory=tempdir())
+spectra.mono.summary.C <- summarize_monospectra(
+   processed.obj=spectra.processed.C,
+   species='C', directory=tempdir())
+mono.info=gather_summary(c(spectra.mono.summary.A, spectra.mono.summary.B, spectra.mono.summary.C))
 }

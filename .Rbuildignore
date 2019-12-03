@@ -1,7 +1,4 @@
-.git
-.gitignore
-.git/
-.git/objects/
-.git/objects/*
 .Rbuildignore.swp
 LICENSE
+RCRANreview.docx
+Rdata/

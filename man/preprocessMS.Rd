@@ -14,7 +14,7 @@ preprocessMS(spectra, halfWindowSize = 20, SNIP.iteration = 60)
 \item{SNIP.iteration}{SNIP.iteration An iteration used to remove the baseline of an spectrum. (Default: 60). See \code{\link[MALDIquant]{removeBaseline}} for details.}
 }
 \value{
-The processed spectra.
+The processed mass spectra. A list of MALDIquant MassSpectrum objects (S4 objects).
 }
 \description{
 Internal function. This function preprocesses spectra by transforming/smoothing intensity, removing baseline, and calibrating intensities.

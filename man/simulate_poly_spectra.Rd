@@ -33,18 +33,35 @@ simulate_poly_spectra(
 \item{mz.range}{A range of m/z values. (Default: c(1000,2200))}
 }
 \value{
-A data frame. A modified version of \code{sim.template}.
+A data frame that contains m/z values of peaks, normalized intensities of peaks, species names, and strain names. A modified version of \code{sim.template}.
 }
 \description{
 This function takes simulated m/z and intensities of peaks from \code{\link{create_insilico_mixture_template}} and modifies them based on given parameters.
 }
 \examples{
-#Assuming that there are only bacteria species Ab and Ec in sim.template.
+spectra.processed.A <- process_monospectra(
+   file=system.file("extdata", "listA.txt", package="MGMS2"),
+   mass.range=c(1000,2200))
+spectra.processed.B <- process_monospectra(
+   file=system.file("extdata", "listB.txt", package="MGMS2"),
+   mass.range=c(1000,2200))
+spectra.processed.C <- process_monospectra(
+   file=system.file("extdata", "listC.txt", package="MGMS2"),
+   mass.range=c(1000,2200))
+spectra.mono.summary.A <- summarize_monospectra(
+   processed.obj=spectra.processed.A,
+   species='A', directory=tempdir())
+spectra.mono.summary.B <- summarize_monospectra(
+   processed.obj=spectra.processed.B,
+   species='B', directory=tempdir())
+spectra.mono.summary.C <- summarize_monospectra(
+   processed.obj=spectra.processed.C,
+   species='C', directory=tempdir())
+mono.info=gather_summary(c(spectra.mono.summary.A, spectra.mono.summary.B, spectra.mono.summary.C))
 mixture.ratio <- list()
-mixture.ratio['Ab']=1
-mixture.ratio['Ec']=0.5
-\dontrun{
+mixture.ratio['A']=1
+mixture.ratio['B']=0.5
+mixture.ratio['C']=0
 sim.template <- create_insilico_mixture_template(mono.info)
 insilico.spectrum <- simulate_poly_spectra(sim.template, mixture.ratio)
-}
 }

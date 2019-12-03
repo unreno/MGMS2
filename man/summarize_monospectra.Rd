@@ -7,7 +7,7 @@
 summarize_monospectra(
   processed.obj,
   species,
-  directory,
+  directory = NULL,
   minFrequency = 0.5,
   align.tolerance = 5e-04,
   snr = 3,
@@ -20,7 +20,7 @@ summarize_monospectra(
 
 \item{species}{Species name.}
 
-\item{directory}{Directory.}
+\item{directory}{Directory. (By default, no summary file will be generated.)}
 
 \item{minFrequency}{Percentage value. A minimum occurrence proportion required for building a reference peaks. All peaks with their occurence proportion less than minFrequency will be moved. (Default: 0.50). See \code{\link[MALDIquant]{filterPeaks}} and \code{\link[MALDIquant]{referencePeaks}} for details.}
 
@@ -39,14 +39,10 @@ A data frame that contains the peaks informations: m/z, mean log intensity, stan
 This function summarizes monomicrobial spectra and writes summary in the specified directory.
 }
 \examples{
-\dontrun{
-spectra.processed.Ab <- process_monospectra(
-   file='Data/Acinetobacter baumannii - sen/list.txt',
+spectra.processed.A <- process_monospectra(
+   file=system.file("extdata", "listA.txt", package="MGMS2"),
    mass.range=c(1000,2200))
-}
-\dontrun{
-spectra.mono.summary.Ab <- summarize_monospectra(
-   processed.obj=spectra.processed.Ab, species='Ab',
-   directory='Mix_Final')
-}
+spectra.mono.summary.A <- summarize_monospectra(
+   processed.obj=spectra.processed.A, species='A',
+   directory=tempdir())
 }

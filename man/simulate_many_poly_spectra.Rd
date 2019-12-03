@@ -7,7 +7,7 @@
 simulate_many_poly_spectra(
   mono.info,
   nsim = 10000,
-  file = "MGMS2_insilico_spectra.pdf",
+  file = NULL,
   mixture.ratio,
   mixture.missing.prob.peak = 0.05,
   noise.peak.ratio = 0.05,
@@ -22,7 +22,7 @@ simulate_many_poly_spectra(
 
 \item{nsim}{The number of simulated spectra. (Default: 10000)}
 
-\item{file}{An output file name. (Default: MGMS2_insilico_spectra.pdf)}
+\item{file}{An output file name. (By default, file=NULL. No pdf file will be generated.)}
 
 \item{mixture.ratio}{A list of bacterial mixture ratios for given bacterial species in sim.template.}
 
@@ -39,13 +39,11 @@ simulate_many_poly_spectra(
 \item{mz.tol}{m/z tolerance. (Default: 0.5)}
 }
 \value{
-Simulated mass spectra.
+A list of data frames. A list of simulated mass spectra (data frames) that contains m/z values of peaks, normalized intensities of peaks, species names, and strain names. This function also creates pdf files which contains simulated spectra.
 }
 \description{
 The function creates simulated mass spectra in pdf file and returns simulated mass spectra (m/z and intensity values of peaks).
 }
 \examples{
-\dontrun{
 simulate_many_poly_spectra(mono.info)
-}
 }

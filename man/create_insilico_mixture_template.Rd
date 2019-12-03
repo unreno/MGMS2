@@ -18,7 +18,24 @@ A data frame which contains simulated m/z, log intensity, and normalized intensi
 This function generates an intial template for simulated mass spectra.
 }
 \examples{
-\dontrun{
+spectra.processed.A <- process_monospectra(
+   file=system.file("extdata", "listA.txt", package="MGMS2"),
+   mass.range=c(1000,2200))
+spectra.processed.B <- process_monospectra(
+   file=system.file("extdata", "listB.txt", package="MGMS2"),
+   mass.range=c(1000,2200))
+spectra.processed.C <- process_monospectra(
+   file=system.file("extdata", "listC.txt", package="MGMS2"),
+   mass.range=c(1000,2200))
+spectra.mono.summary.A <- summarize_monospectra(
+   processed.obj=spectra.processed.A,
+   species='A', directory=tempdir())
+spectra.mono.summary.B <- summarize_monospectra(
+   processed.obj=spectra.processed.B,
+   species='B', directory=tempdir())
+spectra.mono.summary.C <- summarize_monospectra(
+   processed.obj=spectra.processed.C,
+   species='C', directory=tempdir())
+mono.info=gather_summary(c(spectra.mono.summary.A, spectra.mono.summary.B, spectra.mono.summary.C))
 create_insilico_mixture_template(mono.info)
-}
 }

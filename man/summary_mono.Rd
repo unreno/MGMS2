@@ -27,7 +27,7 @@ summary_mono(
 \item{top.N}{The top N peaks will be chosen for the analysis. An integer value. (Default: 50).}
 }
 \value{
-Summary information for spectra of interest.
+Summary information (Data frame) of spectra of interest.
 }
 \description{
 Internal file. This function calculates summary statistics for peaks afterling aligning spectra of interest.

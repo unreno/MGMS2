@@ -9,7 +9,7 @@ simulate_ind_spec_single(interest, mz.tol, species, strain)
 \arguments{
 \item{interest}{Summary statistics of spectra.}
 
-\item{mz.tol}{m/z tolerance that used for m/z value generation.}
+\item{mz.tol}{The tolerance of m/z. This is used to generate m/z values of peaks.}
 
 \item{species}{Species.}
 

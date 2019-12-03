@@ -10,13 +10,20 @@ gather_summary_file(directory)
 \item{directory}{A directory that contains summary files from \code{\link{summarize_monospectra}}.}
 }
 \value{
-A list of combined summary and the corresponding species.
+A list of combined summaries of mass spectra (data frames) from \code{\link{summarize_monospectra}} and the corresponding species (a vector).
 }
 \description{
 This function combines output files from \code{\link{summarize_monospectra}}.
 }
 \examples{
-\dontrun{
-gather_summary_file(directory='C:/')
-}
+spectra.mono.summary.A <- summarize_monospectra(
+   processed.obj=spectra.processed.A,
+   species='A', directory=tempdir())
+spectra.mono.summary.B <- summarize_monospectra(
+   processed.obj=spectra.processed.B,
+   species='B', directory=tempdir())
+spectra.mono.summary.C <- summarize_monospectra(
+   processed.obj=spectra.processed.C,
+   species='C', directory=tempdir())
+gather_summary_file(directory=tempdir())
 }
