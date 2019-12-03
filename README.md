@@ -1,6 +1,6 @@
 # MGMS2
 
-Library for the Interactive Poly-Bacterial in-Silico Glycolipid Spectrum Simulator
+Membrane Glycolipid Mass Spectrum Simulator for polymicrobial samples
 
 
 ##	User
