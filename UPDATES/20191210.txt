@@ -1,0 +1,24 @@
+
+Please shorten the title to a maximum of 65 characters.
+Acronyms can be used on their own in the title as long as they are
+explained in the description field.
+
+Please always write package names, software names and API names in
+single quotes in title and description. e.g: --> 'MGMS2'
+
+Please always explain all acronyms in the description text. e.g. m/z
+
+Please add spaces
+
+   <doi:10.1021/acs.analchem.9b03340>"Model-based
+-->
+   <doi:10.1021/acs.analchem.9b03340> "Model-based
+  <doi:10.1093/bioinformatics/bts447>"MALDIquant
+-->
+  <doi:10.1093/bioinformatics/bts447> "MALDIquant
+
+Please fix and resubmit, and document what was changed in the submission
+comments.
+
+Best,
+Jelena Saf

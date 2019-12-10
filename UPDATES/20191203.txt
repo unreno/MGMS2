@@ -1,0 +1,37 @@
+1. The Description field is intended to be a (one paragraph) description of what the package does and why it may be useful. Please elaborate.
+
+Description:
+A glycolipid mass spectrometry technology has the potential to accurately identify individual bacterial species from polymicrobial samples. To develop bacterial identification algorithms (e.g. machine learning) using this glycolipid technology, it is necessary to generate a large number of various in-silico polymicrobial mass spectra that are similar to real mass spectra. MGMS2 (Membrane Glycolipid Mass Spectrum Simulator) generates such in-silico mass spectra, considering errors in m/z and variances of intensity values, occasions of missing signature ions, and noise peaks. It estimates summary statistics of monomicrobial mass spectra for each strain or species and simulates polymicrobial glycolipid mass spectra using the summary statistics of monomicrobial mass spectra.
+
+2. Please only capitalize sentence beginnings and names in the description text.
+
+Done.
+
+3. Please write references in the form authors (year) <doi:...> authors (year) <arXiv:...> authors (year, ISBN:...) or if those are not available: authors (year) <https:...> with no space after 'doi:', 'arXiv:', 'https:' and angle brackets for auto-linking. If you want to include paper titles please write those in quotes: "Title".
+Ryu, S.Y., Wendt, G.A., Chandler, C.E., Ernst, R.K. and Goodlett, D.R. (2019) <doi:10.1021/acs.analchem.9b03340> "Model-based Spectral Library Approach for Bacterial Identification via Membrane Glycolipids."
+Gibb, S. and Strimmer, K. (2012) <doi:10.1093/bioinformatics/bts447>"MALDIquant: a versatile R package for the analysis of mass spectrometry data."
+
+I removed our manuscript that we will submit soon since it seems that they want doi number or https. We can add our manuscript after we publish it.
+
+4. Please ensure that your functions do not write by default or in your examples/vignettes/tests in the user's home filespace (including the package directory and getwd()). That is not allowed by CRAN policies. Please only write/save files if the user has specified a directory in the function themselves. Therefore please omit any default path = getwd() in writing functions. In your examples/vignettes/tests you can write to tempdir(). e.g. summarize_monospectra.Rd
+
+We modified the codes (summarize_monospectra and simulate_many_poly_spectra), so that nothing will be written in the file by default. For examples, we used tempdir().
+
+5. Please elaborate on the use of function install_check() in the documentation.
+
+Removed
+
+6. Please elaborate on \value. Please add information of object class. e.g. simulate_many_poly_spectra.Rd
+
+We added additional information of object class.
+
+7. Please add small files needed for the examples in the inst/extdata subfolder of your package and use system.file() to get the correct package path. e.g. process_monospectra.Rd, ...
+
+We added example files needed for the examples in the inst/extdata.
+
+8. \dontrun{} should be only used if the example really cannot be executed (e.g. because of missing additional software, missing API keys, ...) by the user. That's why wrapping examples in \dontrun{} adds the comment ("# Not run:") as a warning for the user. Does not seem necessary. Please unwrap the examples if they are executable in < 5 sec, or create additionally small toy examples to allow automatic testing. (You could also replace \dontrun{} with \donttest if it takes longer than 5 sec to be executed, but it would be preferable to have automatic checks for functions.)
+
+We removed dontrun{}. We re-wrote toy examples using example raw files.
+
+Please fix and resubmit, and document what was changed in the submission comments.
+
