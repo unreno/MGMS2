@@ -39,7 +39,7 @@ simulate_many_poly_spectra(
 \item{mz.tol}{m/z tolerance. (Default: 0.5)}
 }
 \value{
-A list of data frames. A list of simulated mass spectra (data frames) that contains m/z values of peaks, normalized intensities of peaks, species names, and strain names. This function also creates pdf files which contains simulated spectra.
+A list of data frames. A list of simulated mass spectra (data frames) that contains m/z values of peaks, normalized intensities of peaks, species names, and strain names. This function also creates pdf files which contain simulated spectra.
 }
 \description{
 The function creates simulated mass spectra in pdf file and returns simulated mass spectra (m/z and intensity values of peaks).

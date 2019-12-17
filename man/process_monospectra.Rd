@@ -26,20 +26,6 @@ A list of processed monobacterial mass spectra (S4 objects, MALDIquant MassSpect
 \description{
 This function processes multiple mzXML files which are listed in the file that an user specifies.
 }
-\details{
-This tab-delimited file contains a sample desription.
-file.name  strain.no strain
-SpeciesA_StrainX_1.mzXML 1 X
-SpeciesA_StrainX_2.mzXML	1	X
-SpeciesA_StrainX_3.mzXML	1	X
-SpeciesA_StrainX_4.mzXML	1	X
-SpeciesA_StrainX_5.mzXML	1	X
-SpeciesA_StrainX_6.mzXML	1	X
-SpeciesA_StrainY_1.mzXML	2	Y
-SpeciesA_StrainY_2.mzXML	2	Y
-SpeciesA_StrainY_3.mzXML	3	Y
-SpeciesA_StrainY_4.mzXML	4	Y
-}
 \examples{
 spectra.processed.A <- process_monospectra(
    file=system.file("extdata", "listA.txt", package="MGMS2"),

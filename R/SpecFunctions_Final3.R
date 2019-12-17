@@ -170,19 +170,6 @@ summarize_monospectra <- function(processed.obj, species, directory=NULL, minFre
 #' spectra.processed.A <- process_monospectra(
 #'    file=system.file("extdata", "listA.txt", package="MGMS2"),
 #'    mass.range=c(1000,2200))
-#' @details
-#' This tab-delimited file contains a sample desription.
-#' file.name  strain.no strain
-#' SpeciesA_StrainX_1.mzXML 1 X
-#' SpeciesA_StrainX_2.mzXML	1	X
-#' SpeciesA_StrainX_3.mzXML	1	X
-#' SpeciesA_StrainX_4.mzXML	1	X
-#' SpeciesA_StrainX_5.mzXML	1	X
-#' SpeciesA_StrainX_6.mzXML	1	X
-#' SpeciesA_StrainY_1.mzXML	2	Y
-#' SpeciesA_StrainY_2.mzXML	2	Y
-#' SpeciesA_StrainY_3.mzXML	3	Y
-#' SpeciesA_StrainY_4.mzXML	4	Y
 #' @export
 
 process_monospectra <- function(file, mass.range=c(1000,2200), halfWindowSize=20, SNIP.iteration=60){
@@ -201,7 +188,7 @@ process_monospectra <- function(file, mass.range=c(1000,2200), halfWindowSize=20
 
 #' summary_mono
 #'
-#' Internal file. This function calculates summary statistics for peaks afterling aligning spectra of interest.
+#' Internal function. This function calculates summary statistics for peaks afterling aligning spectra of interest.
 #' @param spectra.interest A list which contains peaks information for a strain of interest.
 #' @param minFrequency Percentage value. A minimum occurrence proportion required for building a reference peaks. All peaks with their occurence proportion less than minFrequency will be moved. (Default: 0.50). See \code{\link[MALDIquant]{filterPeaks}} and \code{\link[MALDIquant]{referencePeaks}} for details.
 #' @param align.tolerance Mass tolerance. Must be multiplied by 10^-6 for ppm. (Default: 0.0005).
@@ -246,7 +233,7 @@ summary_mono <- function(spectra.interest, minFrequency=0.50, align.tolerance=0.
 
 #' simulate_ind_spec_single
 #'
-#' Internal file. The function simulates m/z and intensity values using given summary statistics.
+#' Internal function. The function simulates m/z and intensity values using given summary statistics.
 #' @param interest Summary statistics of spectra.
 #' @param mz.tol The tolerance of m/z. This is used to generate m/z values of peaks.
 #' @param species Species.
@@ -395,7 +382,7 @@ simulate_poly_spectra <- function(sim.template, mixture.ratio, spectrum.name='Sp
 #' @param noise.cv A coefficient of variation of noise peaks. (Default: 0.25)
 #' @param mz.range A range of m/z values. (Default: c(1000,2200))
 #' @param mz.tol m/z tolerance. (Default: 0.5)
-#' @return A list of data frames. A list of simulated mass spectra (data frames) that contains m/z values of peaks, normalized intensities of peaks, species names, and strain names. This function also creates pdf files which contains simulated spectra.
+#' @return A list of data frames. A list of simulated mass spectra (data frames) that contains m/z values of peaks, normalized intensities of peaks, species names, and strain names. This function also creates pdf files which contain simulated spectra.
 #' @examples
 #' spectra.processed.A <- process_monospectra(
 #'    file=system.file("extdata", "listA.txt", package="MGMS2"),

@@ -188,10 +188,11 @@ https://xmpalantir.wu.ac.at/cransubmit/
 Check for CRAN issues ...
 ```BASH
 R -e 'library(devtools);document();setwd("..");install("MGMS2",upgrade=FALSE)'
+VERSION=$( awk '(/^Version/){print $2}' DESCRIPTION )
 cd ..
 R CMD build MGMS2
-R CMD check MGMS2_*.tar.gz
-R CMD check --as-cran MGMS2_*.tar.gz
+R CMD check MGMS2_${VERSION}.tar.gz
+R CMD check --as-cran MGMS2_${VERSION}.tar.gz
 ```
 
 If all is well, try to submit to CRAN

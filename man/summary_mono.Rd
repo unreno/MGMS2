@@ -30,5 +30,5 @@ summary_mono(
 Summary information (Data frame) of spectra of interest.
 }
 \description{
-Internal file. This function calculates summary statistics for peaks afterling aligning spectra of interest.
+Internal function. This function calculates summary statistics for peaks afterling aligning spectra of interest.
 }
