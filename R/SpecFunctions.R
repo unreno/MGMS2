@@ -471,3 +471,73 @@ create_insilico_mixture_template <- function(mono.info, mz.tol=0.5){
 	return(spec.mixture)
 }
 
+#' characterize_peak
+#'
+#' This function characterizes peaks by species/strain in a simulated spectrum after taking the highest peak or merging peaks in each bin.
+#' @param spec A data frame that contains m/z values of peaks, normalized intensities of peaks, species names, and strain names. Either an output of \code{\link{simulate_poly_spectra}} or one elements of a list output from \code{\link{simulate_many_poly_spectra}}. 
+#' @param option An option on how to merge peaks. There are two options: 1) no merge, thus take the highest intensity peak in each bin after binning a spectrum by bin.size, or 2) take a sum of intensity within each bin after binning a spectrum by bin.size.
+#' @return A data frame that contains m/z values of peaks (mz), intensities of peaks (int), species names (species), and strain names (strain). Species and strain columns may contain more than one species/strain if an option 2 is chosen.
+#' @examples
+#' spectra.processed.A <- process_monospectra(
+#'    file=system.file("extdata", "listA.txt", package="MGMS2"),
+#'    mass.range=c(1000,2200))
+#' spectra.processed.B <- process_monospectra(
+#'    file=system.file("extdata", "listB.txt", package="MGMS2"),
+#'    mass.range=c(1000,2200))
+#' spectra.processed.C <- process_monospectra(
+#'    file=system.file("extdata", "listC.txt", package="MGMS2"),
+#'    mass.range=c(1000,2200))
+#' spectra.mono.summary.A <- summarize_monospectra(
+#'    processed.obj=spectra.processed.A,
+#'    species='A', directory=tempdir())
+#' spectra.mono.summary.B <- summarize_monospectra(
+#'    processed.obj=spectra.processed.B,
+#'    species='B', directory=tempdir())
+#' spectra.mono.summary.C <- summarize_monospectra(
+#'    processed.obj=spectra.processed.C,
+#'    species='C', directory=tempdir())
+#' mono.info=gather_summary(c(spectra.mono.summary.A, spectra.mono.summary.B, spectra.mono.summary.C))
+#' mixture.ratio <- list()
+#' mixture.ratio['A']=1
+#' mixture.ratio['B']=0.5
+#' mixture.ratio['C']=0
+#' sim.template <- create_insilico_mixture_template(mono.info)
+#' insilico.spectrum <- simulate_poly_spectra(sim.template, mixture.ratio)
+#' merged.spectrum <- characterize_peak(insilico.spectrum, option=2) 
+#' @export
+characterize_peak <- function(spec, option=1, bin.size=1, min.mz=1000, max.mz=2200){	
+	bin.mass = seq(min.mz, max.mz, by=bin.size)
+	bin.mass = bin.mass[-length(bin.mass)]
+	chosen.mz = chosen.int = array(c(0), dim=length(bin.mass)) 
+	chosen.species = chosen.strain = array(c(NA), dim=length(bin.mass))
+	for (j in 1:length(bin.mass)){
+		current.min.mass = bin.mass[j]
+		current.max.mass = current.min.mass+bin.size
+		index = which((spec$mz >= current.min.mass) & (spec$mz < current.max.mass))
+		if (option==1){
+			if (length(index)>0){
+				index2 = which.max(spec$normalized.int[index])
+				chosen.int[j] = max(spec$normalized.int[index])
+				chosen.mz[j] = spec$mz[index][index2]
+				chosen.species[j] = as.character(spec$species[index][index2])
+				chosen.strain[j] = as.character(spec$strain[index][index2])
+			}
+		}else{
+			if (length(index)>0){
+				chosen.int[j] = sum(spec$normalized.int[index])
+				chosen.mz[j] = mean(spec$mz[index])
+				chosen.species[j] = paste(unique(as.character(spec$species[index])), collapse=';')
+				chosen.strain[j] = paste(unique(as.character(spec$strain[index])), collapse=';')
+			}		
+		}
+	}
+	binned.spec = data.frame(mz=chosen.mz, 
+							int=chosen.int,
+							species=chosen.species,
+							strain=chosen.strain)
+	binned.spec = binned.spec[binned.spec$mz>0,]
+	binned.spec = binned.spec[sort.int(binned.spec$mz, index.return=TRUE)$ix,]
+	return(binned.spec)
+}
+	
+
