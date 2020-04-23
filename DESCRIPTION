@@ -1,6 +1,6 @@
 Package: MGMS2
 Title: 'MGMS2' for Polymicrobial Samples
-Version: 1.0.1
+Version: 1.0.2
 Authors@R: c(
 	person(given = "So Young",
 		family = "Ryu",

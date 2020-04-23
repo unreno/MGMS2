@@ -476,6 +476,9 @@ create_insilico_mixture_template <- function(mono.info, mz.tol=0.5){
 #' This function characterizes peaks by species/strain in a simulated spectrum after taking the highest peak or merging peaks in each bin.
 #' @param spec A data frame that contains m/z values of peaks, normalized intensities of peaks, species names, and strain names. Either an output of \code{\link{simulate_poly_spectra}} or one elements of a list output from \code{\link{simulate_many_poly_spectra}}. 
 #' @param option An option on how to merge peaks. There are two options: 1) no merge, thus take the highest intensity peak in each bin after binning a spectrum by bin.size, or 2) take a sum of intensity within each bin after binning a spectrum by bin.size.
+#' @param bin.size An integer. A bin size. (1 by default)
+#' @param min.mz A real number. Minimum mass-to-charge ratio. (1000 by default)
+#' @param max.mz A real number. Maximum mass-to-charge ratio. (2200 by default)
 #' @return A data frame that contains m/z values of peaks (mz), intensities of peaks (int), species names (species), and strain names (strain). Species and strain columns may contain more than one species/strain if an option 2 is chosen.
 #' @examples
 #' spectra.processed.A <- process_monospectra(

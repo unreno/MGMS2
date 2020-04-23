@@ -195,7 +195,7 @@ R CMD check MGMS2_${VERSION}.tar.gz
 R CMD check --as-cran MGMS2_${VERSION}.tar.gz
 ```
 
-If all is well, try to submit to CRAN
+If all is well, try to submit to CRAN using the form on https://cran.r-project.org/
 
 
 
